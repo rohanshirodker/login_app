@@ -1,13 +1,8 @@
-import 'dart:ui';
-import 'package:cyanodoc_test/ProfilePage.dart';
+import 'package:cyanodoc_test/app/modules/ProfilePage/ProfilePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
-
-
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -22,38 +17,33 @@ class _LoginPageState extends State<LoginPage> {
   //firebase variable
   final _auth = FirebaseAuth.instance;
 
-
-
   // editing controller
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
-
     //email
     final emailField = TextFormField(
-        autofocus: false,
-        controller: emailController,
-        keyboardType: TextInputType.emailAddress,
+      autofocus: false,
+      controller: emailController,
+      keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value!.isEmpty) {
           return ("Please Enter Your Email");
         }
         // reg expression for email validation
-        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-            .hasMatch(value)) {
+        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
           return ("Please Enter a valid email");
         }
         return null;
       },
-      onSaved: (value){
-          emailController.text = value!;
+      onSaved: (value) {
+        emailController.text = value!;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon : Icon(Icons.mail,color: Colors.black),
+        prefixIcon: Icon(Icons.mail, color: Colors.black),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Email",
         border: OutlineInputBorder(
@@ -76,12 +66,12 @@ class _LoginPageState extends State<LoginPage> {
           return ("Enter Valid Password(Min. 6 Character)");
         }
       },
-      onSaved: (value){
+      onSaved: (value) {
         passwordController.text = value!;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon : Icon(Icons.vpn_key,color: Colors.black),
+        prefixIcon: Icon(Icons.vpn_key, color: Colors.black),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Password",
         border: OutlineInputBorder(
@@ -94,21 +84,19 @@ class _LoginPageState extends State<LoginPage> {
     final loginButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color : Colors.deepPurple,
+      color: Colors.deepPurple,
       child: MaterialButton(
-        padding: EdgeInsets.fromLTRB(20,15, 20, 15),
-        minWidth: MediaQuery.of(context).size.width,
-
-        onPressed: (){
-          signIn(emailController.text, passwordController.text);
-        },
-        child: Text("Login",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20, color:Colors.white,fontWeight: FontWeight.bold
-          )
-        )
-      ),
+          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          minWidth: MediaQuery.of(context).size.width,
+          onPressed: () {
+            signIn(emailController.text, passwordController.text);
+          },
+          child: Text("Login",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold))),
     );
 
     return Scaffold(
@@ -125,43 +113,34 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-
                     emailField,
                     SizedBox(height: 25),
-
                     passwordField,
                     SizedBox(height: 45),
-
                     loginButton,
                     SizedBox(height: 45),
-
                   ],
-              ),
+                ),
               ),
             ),
           ),
         ),
       ),
     );
-
-   }
-
-
-    //login function
-    void signIn(String email, String password) async{
-      if(_formKey.currentState!.validate()){
-        await _auth
-            .signInWithEmailAndPassword(email: email, password: password)
-            .then((uid) => {
-           Fluttertoast.showToast(msg: "Login Successful"),
-          Get.to( ProfilePage() ),
-        }).catchError((e)
-            {
-              Fluttertoast.showToast(msg: e!.message);
-                  });
-
-      }
-    }
   }
 
-
+  //login function
+  void signIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+                Fluttertoast.showToast(msg: "Login Successful"),
+                Get.to(ProfilePage()),
+              })
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+    }
+  }
+}
