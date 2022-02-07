@@ -3,7 +3,7 @@ import 'package:cyanodoc_test/ProfilePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:get/get.dart';
 
 
 
@@ -154,8 +154,7 @@ class _LoginPageState extends State<LoginPage> {
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
            Fluttertoast.showToast(msg: "Login Successful"),
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => ProfilePage() )),
+          Get.to( ProfilePage() ),
         }).catchError((e)
             {
               Fluttertoast.showToast(msg: e!.message);

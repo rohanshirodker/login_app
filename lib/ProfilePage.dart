@@ -1,10 +1,11 @@
  import 'dart:ui';
-
 import 'package:cyanodoc_test/LoginPage.dart';
 import 'package:cyanodoc_test/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:cyanodoc_test/controllers/profilePageController.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
-
+  final profilePageController controller = Get.put(profilePageController());
 User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
 void initState(){
@@ -50,6 +51,24 @@ void initState(){
               ),
               SizedBox(height: 25),
               Text(
+                'You have pushed the button this many times:',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
+              ),
+              SizedBox(height: 15),
+              Obx(
+                  () => Text(
+                    '${controller.count.value}',
+                      style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold)
+                  )
+              ),
+              SizedBox(height: 25),
+              FloatingActionButton(
+                onPressed: controller.increment,
+                tooltip: 'Increment',
+                child: Icon(Icons.add),
+              ),
+              SizedBox(height: 25),
+              Text(
                   "${loggedInUser.firstName}",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
               ),
@@ -59,6 +78,7 @@ void initState(){
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
               ),
               SizedBox(height: 25),
+
               ActionChip(label: Text("Logout"),onPressed: (){
                 logout(context);
               },),
@@ -74,8 +94,7 @@ void initState(){
   Future<void> logout(BuildContext) async
   {
     await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginPage() ));
+    Get.off(LoginPage() );
 
   }
 
