@@ -100,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return Scaffold(
+        backgroundColor: Colors.purple[900],
       body: Center(
         child: SingleChildScrollView(
           child: Container(
