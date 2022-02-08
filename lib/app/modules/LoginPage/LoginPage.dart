@@ -100,14 +100,22 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return Scaffold(
-        backgroundColor: Colors.purple[900],
+      backgroundColor: Colors.purple[900],
       body: Center(
         child: SingleChildScrollView(
+          padding: EdgeInsets.all(10),
           child: Container(
-            padding: EdgeInsets.all(10),
-            color: Colors.white,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.red,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(25))),
+            // padding: EdgeInsets.all(5),
+
+            //color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(30.0),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -117,9 +125,9 @@ class _LoginPageState extends State<LoginPage> {
                     emailField,
                     SizedBox(height: 25),
                     passwordField,
-                    SizedBox(height: 45),
+                    SizedBox(height: 25),
                     loginButton,
-                    SizedBox(height: 45),
+                    //SizedBox(height: 10),
                   ],
                 ),
               ),

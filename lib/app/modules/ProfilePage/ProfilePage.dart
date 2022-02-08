@@ -38,46 +38,48 @@ class _ProfilePageState extends State<ProfilePage> {
         centerTitle: true,
       ),
       body: Center(
-        child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("Welcome",
-                    style:
-                        TextStyle(fontSize: 50, fontWeight: FontWeight.bold)),
-                SizedBox(height: 25),
-                Text('You have pushed the button this many times:',
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                SizedBox(height: 15),
-                Obx(() => Text('${controller.count.value}',
-                    style:
-                        TextStyle(fontSize: 50, fontWeight: FontWeight.bold))),
-                SizedBox(height: 25),
-                FloatingActionButton(
-                  onPressed: controller.increment,
-                  tooltip: 'Increment',
-                  child: Icon(Icons.add),
-                ),
-                SizedBox(height: 25),
-                Text("${loggedInUser.firstName}",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                SizedBox(height: 25),
-                Text("${loggedInUser.email}",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                SizedBox(height: 25),
-                ActionChip(
-                  label: Text("Logout"),
-                  onPressed: () {
-                    logout(context);
-                  },
-                ),
-              ],
-            )),
+        child: SingleChildScrollView(
+          child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text("Welcome",
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 25),
+                  Text('You have pushed the button this many times:',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 15),
+                  Obx(() => Text('${controller.count.value}',
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold))),
+                  SizedBox(height: 20),
+                  FloatingActionButton(
+                    onPressed: controller.increment,
+                    tooltip: 'Increment',
+                    child: Icon(Icons.add),
+                  ),
+                  SizedBox(height: 20),
+                  Text("${loggedInUser.firstName}",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 20),
+                  Text("${loggedInUser.email}",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 30),
+                  ActionChip(
+                    label: Text("Logout"),
+                    onPressed: () {
+                      logout(context);
+                    },
+                  ),
+                ],
+              )),
+        ),
       ),
     );
   }
