@@ -2,19 +2,17 @@
 // import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
 //
 // class AuthService {
-//   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+//   final FirebaseAuth auth = FirebaseAuth.instance;
 //
 //   //final GoogleSignIn _googleSignIn = GoogleSignIn();
 //
-//   // Stream<User?> Function() onAuthChanged() {
-//   //   return _firebaseAuth.authStateChanges;
-//   // }
-//   Stream<User> onAuthChanged() {
-//     return _firebaseAuth.authStateChanges;
+//
+//   Stream<User?> Function() onAuthChanged() {
+//     return auth.authStateChanges;
 //   }
 //   Future<String?> signInWithEmailAndPassword(
 //       String email, String password) async {
-//     UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(
+//     UserCredential result = await auth.signInWithEmailAndPassword(
 //         email: email, password: password);
 //     return result.user?.uid;
 //   }
@@ -34,7 +32,7 @@
 //   // }
 //
 //   Future<bool> isSignedIn() async {
-//     final currentUser = await _firebaseAuth.currentUser!;
+//     final currentUser = await auth.currentUser!;
 //     return currentUser != null;
 //   }
 //
@@ -51,7 +49,7 @@
 //   // }
 //
 //   Future<User> getCurrentUser() async {
-//     User user = await _firebaseAuth.currentUser!;
+//     User user = await auth.currentUser!;
 //     return user;
 //   }
 //
@@ -69,7 +67,7 @@
 //
 //   Future<Future<List<void>>> signOut() async {
 //     return Future.wait([
-//       _firebaseAuth.signOut(),
+//       auth.signOut(),
 //       //_googleSignIn.signOut(),
 //     ]);
 //   }
@@ -118,4 +116,4 @@
 // //   return null;
 // // }
 // }
-
+//

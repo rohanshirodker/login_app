@@ -1,9 +1,9 @@
 import 'package:cyanodoc_test/app/modules/ProfilePage/ProfilePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
+import 'package:cyanodoc_test/app/data/services/Auth_Service.dart';
 
 class LoginPage extends StatelessWidget {
   AuthController authController = AuthController.instance;
