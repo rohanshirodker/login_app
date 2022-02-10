@@ -1,18 +1,21 @@
-import 'package:cyanodoc_test/app/modules/ProfilePage/ProfilePage.dart';
+//import 'package:cyanodoc_test/app/modules/ProfilePage/ProfilePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
-import 'package:cyanodoc_test/app/data/services/Auth_Service.dart';
+
+//import 'package:cyanodoc_test/app/data/services/Auth_Service.dart';
+import 'package:cyanodoc_test/app/data/services/signin_enum.dart';
 
 class LoginPage extends StatelessWidget {
-  AuthController authController = AuthController.instance;
+  final AuthController authController = AuthController.to;
+
   @override
   Widget build(BuildContext context) {
     //email
     final emailField = TextFormField(
       autofocus: false,
-      controller: AuthController.instance.email,
+      controller: authController.emailController,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
@@ -28,7 +31,7 @@ class LoginPage extends StatelessWidget {
     //password
     final passwordField = TextFormField(
       autofocus: false,
-      controller: AuthController.instance.password,
+      controller: authController.passwordController,
       obscureText: true,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
@@ -50,7 +53,7 @@ class LoginPage extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
-            authController.signIn();
+            authController.handleSignIn(SignInType.EMAIL_PASSWORD);
           },
           child: Text("Login",
               textAlign: TextAlign.center,

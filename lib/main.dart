@@ -9,13 +9,13 @@ import 'package:get/get.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Get.put(AuthController());
+  // Get.put(AuthController());
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  //AuthController authController = Get.put<AuthController>(AuthController());
+  AuthController authController = Get.put<AuthController>(AuthController());
 
   @override
   Widget build(BuildContext context) {
