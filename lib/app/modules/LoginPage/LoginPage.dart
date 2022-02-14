@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
 
-//import 'package:cyanodoc_test/app/data/services/Auth_Service.dart';
-import 'package:cyanodoc_test/app/data/services/signin_enum.dart';
+//import 'package:cyanodoc_test/app/data/services/Auth_Service1.dart';
+//import 'package:cyanodoc_test/app/data/services/signin_enum.dart';
 
 class LoginPage extends StatelessWidget {
   final AuthController authController = AuthController.to;
@@ -53,7 +53,8 @@ class LoginPage extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
-            authController.handleSignIn(SignInType.EMAIL_PASSWORD);
+            authController.signIn();
+           // authController.handleSignIn(SignInType.EMAIL_PASSWORD);
           },
           child: Text("Login",
               textAlign: TextAlign.center,

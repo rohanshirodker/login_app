@@ -1,3 +1,5 @@
+import 'package:cyanodoc_test/app/modules/DiagnosisSummary/DiagnosisSummary.dart';
+import 'package:cyanodoc_test/app/modules/HomePage/HomePage.dart';
 import 'package:cyanodoc_test/app/modules/LoginPage/LoginPage.dart';
 import 'package:cyanodoc_test/app/modules/ProfilePage/ProfilePage.dart';
 import 'package:get/get.dart';
@@ -9,24 +11,22 @@ class AppRoutes {
     //   page: () => SplashScreen(),
     // ),
     GetPage(
-      name: '/ProfilePage',
-      page: () => ProfilePage(),
-    ),
-    GetPage(
       name: '/LoginPage',
       page: () => LoginPage(),
     ),
+    GetPage(
+      name: '/HomePage',
+      page: () => HomePage(),
+    ),
     // GetPage(
-    //   name: '/register',
-    //   page: () => RegisterPage(),
+    //   name: '/ProfilePage',
+    //   page: () => ProfilePage(),
     // ),
-    // GetPage(
-    //   name: '/todos/:id/edit',
-    //   page: () => EditTodo(),
-    // ),
-    // GetPage(
-    //   name: '/add-todo',
-    //   page: () => AddTodo(),
-    // ),
+    GetPage(
+      name: '/DiagnosisSummary',
+      page: () => DiagnosisSummary(),
+    ),
+
+
   ];
 }
