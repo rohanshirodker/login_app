@@ -3,13 +3,15 @@ import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 class BiometricsPageController extends GetxController {
   final TextEditingController AgeController =
-      TextEditingController(text: box.read('Age'));
+  TextEditingController(text: box.read('Age'));
   final TextEditingController WeightController =
-      TextEditingController(text: box.read('Weight'));
+  TextEditingController(text: box.read('Weight'));
   final TextEditingController HeightController =
-      TextEditingController(text: box.read('Height'));
+  TextEditingController(text: box.read('Height'));
+
 
   void Submit() {
     if (AgeController.text != "" &&
@@ -38,12 +40,13 @@ class BiometricsPageController extends GetxController {
     }
   }
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    AgeController.dispose();
-    WeightController.dispose();
-    HeightController.dispose();
-    super.dispose();
-  }
+
+// @override
+// void dispose() {
+//   // Clean up the controller when the widget is disposed.
+//   AgeController.dispose();
+//   WeightController.dispose();
+//   HeightController.dispose();
+//   super.dispose();
+//}
 }

@@ -1,4 +1,5 @@
 import 'package:cyanodoc_test/app/modules/BiometricsPage/BiometricsPageController.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

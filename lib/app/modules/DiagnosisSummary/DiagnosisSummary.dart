@@ -31,15 +31,15 @@ class DiagnosisSummary extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Age : " + box.read('Age'),
+                      Text("Age : " + box.read('Age').toString(),
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
                       SizedBox(height: 25),
-                      Text("Weight : " + box.read('Weight'),
+                      Text("Weight : " + box.read('Weight').toString(),
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
                       SizedBox(height: 25),
-                      Text("Height : " + box.read('Height'),
+                      Text("Height : " + box.read('Height').toString(),
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
                       SizedBox(height: 25),
@@ -60,18 +60,18 @@ class DiagnosisSummary extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Age : " + box.read('Age'),
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 25),
-                        Text("Weight : " + box.read('Weight'),
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 25),
-                        Text("Height : " + box.read('Height'),
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 25),
+                         Text("Symptoms")
+                        //     style: TextStyle(
+                        //         fontSize: 20, fontWeight: FontWeight.bold)),
+                        // SizedBox(height: 25),
+                        // Text("Weight : " + box.read('Weight'),
+                        //     style: TextStyle(
+                        //         fontSize: 20, fontWeight: FontWeight.bold)),
+                        // SizedBox(height: 25),
+                        // Text("Height : " + box.read('Height'),
+                        //     style: TextStyle(
+                        //         fontSize: 20, fontWeight: FontWeight.bold)),
+                        // SizedBox(height: 25),
                       ],
                     ),
                   ))
