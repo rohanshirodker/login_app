@@ -1,3 +1,5 @@
+import 'package:cyanodoc_test/app/core/values/colors.dart';
+import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
 import 'package:cyanodoc_test/app/modules/BiometricsPage/BiometricsPageController.dart';
 
 import 'package:flutter/material.dart';
@@ -9,19 +11,21 @@ class BiometricsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Biometrics'),
-        centerTitle: true,
-      ),
+      backgroundColor: backgroucolor,
+      appBar: topAppBar,
+      //   (
+      //   title: Text('Biometrics'),
+      //   centerTitle: true,
+      // ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(30),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TextFormField(
-                // initialValue: 'Input text',
+
                 controller: biocontroller.AgeController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -62,7 +66,7 @@ class BiometricsPage extends StatelessWidget {
                   helperText: 'ft',
                   //errorText: 'Can\'t Be Empty',
                   border: OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(25.0),
+                    borderRadius: new BorderRadius.circular(20.0),
                   ),
                   suffixIcon: Icon(
                     Icons.edit,
@@ -75,6 +79,7 @@ class BiometricsPage extends StatelessWidget {
                   biocontroller.Submit();
                 },
                 child: Text("Next"),
+                  style: ElevatedButton.styleFrom(primary: buttoncolor)
               ),
             ],
           ),

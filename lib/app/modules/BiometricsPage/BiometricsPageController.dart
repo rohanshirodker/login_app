@@ -41,12 +41,12 @@ class BiometricsPageController extends GetxController {
   }
 
 
-// @override
-// void dispose() {
-//   // Clean up the controller when the widget is disposed.
-//   AgeController.dispose();
-//   WeightController.dispose();
-//   HeightController.dispose();
-//   super.dispose();
-//}
+@override
+void dispose() {
+  // Clean up the controller when the widget is disposed.
+  AgeController.dispose();
+  WeightController.dispose();
+  HeightController.dispose();
+  super.dispose();
+}
 }

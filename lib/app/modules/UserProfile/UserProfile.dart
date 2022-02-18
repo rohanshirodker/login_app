@@ -1,5 +1,7 @@
+import 'package:cyanodoc_test/app/core/values/colors.dart';
 import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
 import 'package:cyanodoc_test/app/data/services/Database.dart';
+import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
 import 'package:cyanodoc_test/app/modules/UserProfile/UserProfileController.dart';
 
 import 'package:flutter/material.dart';
@@ -14,18 +16,8 @@ class UserProfile extends GetWidget<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('User Profile'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-              Get.put(AuthController.to.sigOut());
-            },
-          ),
-        ],
-      ),
+      backgroundColor: backgroucolor,
+      appBar: topAppBar,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(

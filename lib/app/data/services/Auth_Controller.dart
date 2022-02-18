@@ -2,7 +2,6 @@ import 'package:cyanodoc_test/app/data/model/User_Model.dart';
 import 'package:cyanodoc_test/app/data/services/Database.dart';
 import 'package:cyanodoc_test/app/modules/HomePage/HomePage.dart';
 import 'package:cyanodoc_test/app/modules/LoginPage/LoginPage.dart';
-import 'package:cyanodoc_test/app/modules/ProfilePage/ProfilePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
