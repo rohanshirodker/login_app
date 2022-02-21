@@ -4,49 +4,44 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SymptomsPageController extends GetxController {
-  final _symptoms = {
-    SymptomsData(id: 1, name: "Headache"): false,
-    SymptomsData(id: 2, name: "Stomach ach"): false,
-    SymptomsData(id: 3, name: "Hair loss"): false,
-    SymptomsData(id: 4, name: "Headache2"): false,
-    SymptomsData(id: 5, name: "Stomach ach2"): false,
-    SymptomsData(id: 6, name: "Hair loss2"): false,
-  }.obs;
+  final SymptomsProvider SymptomsProvidercontroller = Get.put(SymptomsProvider());
 
-  void toggle(SymptomsData data) {
-    _symptoms[data] = !(_symptoms[data] ?? true);
-    print(_symptoms[data]);
-  }
+  Rx<List<Map<String, dynamic>>> foundsym = Rx<List<Map<String, dynamic>>>([]);
 
-  get selectedSymptoms => _symptoms.entries
-      .where((element) => element.value)
-      .map((e) => e.key)
-      .toList();
 
-  get symptomsdata => _symptoms.entries.map((e) => e.key).toList();
-}
-
-class SymptomsWidget extends StatelessWidget {
-  final SymptomsData symptomsData;
-
-  SymptomsWidget({Key? key, required this.symptomsData}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 52,
+  void onInit() {
+    super.onInit();
+    foundsym.value = SymptomsProvidercontroller.symptoms;
+  }
 
-      child: Center(
-        child: Text(
-          symptomsData.name.toString(),
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-      ),
+  get selectedSymptoms => SymptomsProvidercontroller.symptoms
+      .where((element) => element["selected"].contains("true"))
+      .toList();
 
-    );
+  void symFilter(String EnteredSym) {
+    List<Map<String, dynamic>> results = [];
+    if (EnteredSym.isEmpty) {
+      results = SymptomsProvidercontroller.symptoms;
+    } else {
+      results = SymptomsProvidercontroller.symptoms
+          .where((element) => element["name"]
+              .toString()
+              .toLowerCase()
+              .contains(EnteredSym.toLowerCase()))
+          .toList();
+    }
+    foundsym.value = results;
+  }
+
+  void toggle(int index) {
+    if (foundsym.value[index]['selected'] == "true") {
+      foundsym.value[index]['selected'] = "false";
+    } else {
+      foundsym.value[index]['selected'] = "true";
+    }
+    foundsym.refresh();
   }
 }
 
@@ -59,51 +54,21 @@ class SymptomsFilter extends StatelessWidget {
       child: Obx(
         () => Container(
           padding: EdgeInsets.all(10),
-
           child: ListView.builder(
-            itemCount: symptomscontroller.symptomsdata.length,
+            itemCount: symptomscontroller.foundsym.value.length,
             itemBuilder: (_, int index) {
               return Card(
                 child: ListTile(
-
                   selected: symptomscontroller.selectedSymptoms
-                      .contains(symptomscontroller.symptomsdata[index]),
-                  selectedTileColor: Color(0xFFDAE6F7),//Colors.lightBlueAccent[100],//Color(0xFFDAE6F7),.
-
-
-                  onTap: () =>
-                      {
-                    symptomscontroller
-                        .toggle(symptomscontroller.symptomsdata[index])
+                      .contains(symptomscontroller.foundsym.value[index]),
+                  selectedTileColor: Color(0xFFDAE6F7),
+                  //onChanged: (bool? selected),
+                  onTap: () => {
+                    symptomscontroller.toggle(index),
                   },
-                  title: SymptomsWidget(
-                      symptomsData: symptomscontroller.symptomsdata[index]),
 
+                  title: Text(symptomscontroller.foundsym.value[index]['name']),
                 ),
-
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SelectedSymptoms extends StatelessWidget {
-  final SymptomsPageController symptomscontroller = Get.find();
-
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      child: Obx(
-        () => Expanded(
-          child: ListView.builder(
-            itemCount: symptomscontroller.selectedSymptoms.length,
-            itemBuilder: (_, int index) {
-              return ListTile(
-                title: SymptomsWidget(
-                    symptomsData: symptomscontroller.symptomsdata[index]),
               );
             },
           ),

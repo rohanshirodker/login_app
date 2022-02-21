@@ -20,12 +20,12 @@ class BiometricsPageController extends GetxController {
       box.write('Age', AgeController.text);
       box.write('Weight', WeightController.text);
       box.write('Height', HeightController.text);
-      Get.snackbar(
-        "Age,Weight,Height",
-        "Update Successful",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.white,
-      );
+      // Get.snackbar(
+      //   "Age,Weight,Height",
+      //   "Update Successful",
+      //   snackPosition: SnackPosition.BOTTOM,
+      //   backgroundColor: Colors.white,
+      // );
       Get.to(() => (SymptomsPage()));
       //Database().updateusername(_updateusername.text, _uid);
       //Get.find<UserProfileController>().userupadte(_uid);

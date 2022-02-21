@@ -70,24 +70,26 @@ class DiagnosisSummary extends StatelessWidget {
               SizedBox(height: 40),
               Text("Symptoms",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Container(
-                padding: EdgeInsets.all(20),
-                color: Colors.grey[200],
-                width: double.infinity,
-                height: 360,
-                child: InkWell(
-                  onTap: () {
-                    Get.to(() => (SymptomsPage()));
-                  },
-                  child: ListView.builder(
-                    itemCount: symptomscontroller.selectedSymptoms.length,
-                    itemBuilder: (_, int index) {
-                      return ListTile(
-                        title: Text(
-                            symptomscontroller.symptomsdata[index].name,
-                            style: TStyle),
-                      );
+              Flexible(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  color: Colors.grey[200],
+                  width: double.infinity,
+                  height: 360,
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(() => (SymptomsPage()));
                     },
+                    child: ListView.builder(
+                      itemCount: symptomscontroller.selectedSymptoms.length,
+                      itemBuilder: (_, int index) {
+                        return ListTile(
+                          title: Text(
+                              symptomscontroller.selectedSymptoms[index]['name'],
+                              style: TStyle),
+                        );
+                      },
+                    ),
                   ),
                 ),
               )
