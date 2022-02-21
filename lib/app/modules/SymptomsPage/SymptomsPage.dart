@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:cyanodoc_test/app/core/values/colors.dart';
+import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
 import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
 import 'package:cyanodoc_test/app/modules/DiagnosisSummary/DiagnosisSummary.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPageController.dart';
@@ -38,6 +39,7 @@ class SymptomsPage extends StatelessWidget {
           SymptomsFilter(),
           ElevatedButton(
               onPressed: () {
+                symptomsBox.write('symptoms', symptomscontroller.selectedSymptoms);
                 Get.to(() => (DiagnosisSummary()));
               },
               child: Text("Done"),

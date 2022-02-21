@@ -15,6 +15,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();
+  await GetStorage.init('symptoms');
   Get.put(UserProfileController());
   Get.put(AuthController());
   Get.put(SymptomsPageController());
