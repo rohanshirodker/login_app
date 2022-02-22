@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:cyanodoc_test/app/core/values/colors.dart';
 import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
+import 'package:cyanodoc_test/app/data/services/Database.dart';
 import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
 import 'package:cyanodoc_test/app/modules/DiagnosisSummary/DiagnosisSummary.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPageController.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,7 +41,12 @@ class SymptomsPage extends StatelessWidget {
           SymptomsFilter(),
           ElevatedButton(
               onPressed: () {
+
                 symptomsBox.write('symptoms', symptomscontroller.selectedSymptoms);
+                symptomscontroller.symFilter("");
+
+                // Database()
+                //     .updatesymptoms(FirebaseAuth.instance.currentUser!.uid, symptomscontroller.selectedSymptoms );
                 Get.to(() => (DiagnosisSummary()));
               },
               child: Text("Done"),

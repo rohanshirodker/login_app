@@ -13,6 +13,7 @@ class UserProfile extends GetWidget<AuthController> {
       IconData(0xe699, fontFamily: 'MaterialIcons');
   late String _uid;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +61,6 @@ class UserProfile extends GetWidget<AuthController> {
                         Database().updateusername(_updateusername.text, _uid);
                         Get.find<UserProfileController>().userupadte(_uid);
                         _updateusername.clear();
-
-                        ;
                       }
                     },
                   ),

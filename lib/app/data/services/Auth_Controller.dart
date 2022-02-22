@@ -42,6 +42,7 @@ class AuthController extends GetxController {
     }
   }
 
+
   void signIn() async {
     if (emailController.text == "" || passwordController.text == "") {
       Get.snackbar(

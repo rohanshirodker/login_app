@@ -1,10 +1,14 @@
 import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
+import 'package:cyanodoc_test/app/data/services/Database.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPage.dart';
+import 'package:cyanodoc_test/app/modules/UserProfile/UserProfileController.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 class BiometricsPageController extends GetxController {
+  //final UserProfileController controller = Get.find();
   final TextEditingController AgeController =
   TextEditingController(text: box.read('Age'));
   final TextEditingController WeightController =
@@ -20,6 +24,12 @@ class BiometricsPageController extends GetxController {
       box.write('Age', AgeController.text);
       box.write('Weight', WeightController.text);
       box.write('Height', HeightController.text);
+      Database()
+          .updatebiometrics( FirebaseAuth.instance.currentUser!.uid,
+          AgeController.text,
+          WeightController.text,
+          HeightController.text);
+
       // Get.snackbar(
       //   "Age,Weight,Height",
       //   "Update Successful",

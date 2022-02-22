@@ -1,3 +1,4 @@
+import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
 import 'package:cyanodoc_test/app/data/provider/SymptomsProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +9,21 @@ class SymptomsPageController extends GetxController {
 
   Rx<List<Map<String, dynamic>>> foundsym = Rx<List<Map<String, dynamic>>>([]);
 
-
+//List tempsymp=symptomsBox.read('symptoms');
 
   @override
   void onInit() {
     super.onInit();
     foundsym.value = SymptomsProvidercontroller.symptoms;
+
   }
 
   get selectedSymptoms => SymptomsProvidercontroller.symptoms
       .where((element) => element["selected"].contains("true"))
       .toList();
+
+
+
 
   void symFilter(String EnteredSym) {
     List<Map<String, dynamic>> results = [];
@@ -31,8 +36,11 @@ class SymptomsPageController extends GetxController {
               .toLowerCase()
               .contains(EnteredSym.toLowerCase()))
           .toList();
+
     }
     foundsym.value = results;
+
+
   }
 
   void toggle(int index) {
@@ -76,4 +84,5 @@ class SymptomsFilter extends StatelessWidget {
       ),
     );
   }
+
 }

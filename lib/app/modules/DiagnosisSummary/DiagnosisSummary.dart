@@ -5,17 +5,20 @@ import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
 import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
 import 'package:cyanodoc_test/app/modules/HomePage/HomePage.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPage.dart';
+import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPageController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../BiometricsPage/BiometricsPage.dart';
 
 const TextStyle TStyle = TextStyle(fontSize: 16);
+SymptomsPageController symptomscontroller = Get.find();
 
 class DiagnosisSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List testlist = symptomsBox.read('symptoms');
+    late List symptomslist = (symptomsBox.read('symptoms'));
+
     return WillPopScope(
         onWillPop: () async {
           Get.to(() => (HomePage()));
@@ -71,10 +74,11 @@ class DiagnosisSummary extends StatelessWidget {
                           Get.to(() => (SymptomsPage()));
                         },
                         child: ListView.builder(
-                          itemCount: testlist.length,
+                          itemCount: symptomslist.length.toInt(),
                           itemBuilder: (_, int index) {
                             return ListTile(
-                              title: Text(testlist[index]['name'].toString(),
+                              title: Text(
+                                  symptomslist[index]['name'].toString(),
                                   style: TStyle),
                             );
                           },

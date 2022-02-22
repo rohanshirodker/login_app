@@ -18,8 +18,52 @@ class Database {
     try {
       _firestore.collection("users").doc(uid).update({"username": newValue});
     } catch (e) {
+      //print(e);
+      rethrow;
+    }
+  }
+
+  Future<void> updatebiometrics(String uid, String age ,String weight ,String height) async {
+    try {
+      _firestore.collection("users")
+          .doc(uid)
+          .collection("biometrics")
+          .doc('biometrics')
+          .set({
+        'age':age ,
+        'wright':weight,
+        'height':height,
+      });
+    } catch (e) {
       print(e);
       rethrow;
     }
   }
+
+  // Future<void> updatesymptoms(String uid,Map<String, dynamic> symptoms  ) async {
+  //   try {
+  //     _firestore.collection("users")
+  //         .doc(uid)
+  //         .collection("symptoms")
+  //         .doc('symptoms')
+  //         .set(
+  //       symptoms,
+  //     );
+  //   } catch (e) {
+  //     print(e);
+  //     rethrow;
+  //   }
+  // }
 }
+
+// Future<void> batchDelete() {
+//   WriteBatch batch = FirebaseFirestore.instance.batch();
+//
+//   return users.get().then((querySnapshot) {
+//     querySnapshot.docs.forEach((document) {
+//       batch.delete(document.reference);
+//     });
+//
+//     return batch.commit();
+//   });
+// }
