@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:cyanodoc_test/app/core/values/colors.dart';
 import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
 import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
+import 'package:cyanodoc_test/app/modules/ExistingIllness/ExistingIllness.dart';
+import 'package:cyanodoc_test/app/modules/ExistingIllness/ExistingIllnessController.dart';
 import 'package:cyanodoc_test/app/modules/HomePage/HomePage.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPage.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPageController.dart';
@@ -13,11 +15,13 @@ import '../BiometricsPage/BiometricsPage.dart';
 
 const TextStyle TStyle = TextStyle(fontSize: 16);
 SymptomsPageController symptomscontroller = Get.find();
+ExistingIllnessController ExistingIllnesscontroller = Get.find();
 
 class DiagnosisSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    late List symptomslist = (symptomsBox.read('symptoms'));
+    //late List symptomslist = (symptomsBox.read('symptoms'));
+    //late List existingillnesslist = (existingillnessBox.read('existingillness'));
 
     return WillPopScope(
         onWillPop: () async {
@@ -59,10 +63,11 @@ class DiagnosisSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 10),
                   Text("Symptoms",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 10),
                   Flexible(
                     child: Container(
                       padding: EdgeInsets.all(20),
@@ -74,11 +79,39 @@ class DiagnosisSummary extends StatelessWidget {
                           Get.to(() => (SymptomsPage()));
                         },
                         child: ListView.builder(
-                          itemCount: symptomslist.length.toInt(),
+                          itemCount: symptomscontroller.selectedSymptoms.length.toInt(),
                           itemBuilder: (_, int index) {
                             return ListTile(
                               title: Text(
-                                  symptomslist[index]['name'].toString(),
+                                  symptomscontroller.selectedSymptoms[index]['name'].toString(),
+                                  style: TStyle),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text("Existing Diagnosis",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 10),
+                  Flexible(
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      color: Colors.grey[200],
+                      width: double.infinity,
+                      height: 360,
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(() => (ExistingIllness()));
+                        },
+                        child: ListView.builder(
+                          itemCount: ExistingIllnesscontroller.existingillnessdata.length.toInt(),
+                          itemBuilder: (_, int index) {
+                            return ListTile(
+                              title: Text(
+                                  ExistingIllnesscontroller.existingillnessdata[index]['name'].toString(),
                                   style: TStyle),
                             );
                           },
