@@ -1,4 +1,4 @@
-package com.example.cyanodoc_test
+package com.cyanodoc.etiology
 
 import io.flutter.embedding.android.FlutterActivity
 

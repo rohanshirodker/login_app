@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 class SymptomsPage extends StatelessWidget {
   final SymptomsPageController symptomscontroller = Get.find();
   final SymptomsProvider SymptomsProvidercontroller = Get.find();
-
+  var msgController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,9 +48,11 @@ class SymptomsPage extends StatelessWidget {
               displayStringForOption: (Map<String, dynamic> symptoms) =>
                   symptoms['name'],
               fieldViewBuilder:
-                  (context, controller, focusNode, onEditingComplete) {
+                  (context, msgController, focusNode, onEditingComplete) {
                 return TextField(
-                  controller: controller,
+
+                  controller: msgController,
+
                   focusNode: focusNode,
                   onEditingComplete: null,
                   decoration: InputDecoration(
@@ -58,8 +60,12 @@ class SymptomsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     labelText: 'search symptoms',
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: IconButton(
+                    onPressed:  msgController.clear,
+                    icon: Icon(Icons.clear),
+                    ),
                   ),
+                   // onSubmitted: textEditingValue.clear(),
 
                   //  onChanged: (String value) async {
                   //    controller.clear();
@@ -72,7 +78,8 @@ class SymptomsPage extends StatelessWidget {
               onSelected: (selectedString) {
                 // print(selectedString)
                 //selectedString.clear();
-                return;
+                return msgController.clear();
+              //  return;
               },
               optionsViewBuilder: (context, onSelected, options) {
                 return Material(
@@ -84,14 +91,15 @@ class SymptomsPage extends StatelessWidget {
                       Map<String, dynamic> option = options.elementAt(index);
                       return GestureDetector(
                         onTap: () => {
+
                           symptomscontroller.toggle(option['id']),
+
+
                          //Get.to(() => (DiagnosisSummary())),
 
                           // option.clear(),
 
-                          onSelected(
-                            option,
-                          ),
+                          onSelected(option),
                           //  onSelected(symptomscontroller
 
                           //    .notselectedSymptoms)
@@ -134,4 +142,10 @@ class SymptomsPage extends StatelessWidget {
       ),
     );
   }
+}
+
+void txtclear(TextEditingController msgController){
+   msgController.clear();
+  //msgController.dispose();
+  print("clearded");
 }

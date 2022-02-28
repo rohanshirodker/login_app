@@ -1,33 +1,100 @@
 {
   "project_info": {
-    "project_number": "116781829513",
-    "project_id": "fir-flutter-login-8d6d1",
-    "storage_bucket": "fir-flutter-login-8d6d1.appspot.com"
+    "project_number": "116574275929",
+    "firebase_url": "https://cyanodoc-consult-test.firebaseio.com",
+    "project_id": "cyanodoc-consult-test",
+    "storage_bucket": "cyanodoc-consult-test.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:116781829513:android:d2fa5e6319517eafeae558",
+        "mobilesdk_app_id": "1:116574275929:android:a71b79ab8fdd4a946a2448",
         "android_client_info": {
-          "package_name": "com.example.cyanodoc_test"
+          "package_name": "com.cyanodoc.consult.test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "116781829513-kmhs5nesraohqddk29bemto80gu5usis.apps.googleusercontent.com",
+          "client_id": "116574275929-ota5une1kb028380kqovb52rupm0e7l4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAY9tXqS7S8npWPLf2sMcyf92Pyy9dLD-k"
+          "current_key": "AIzaSyAljJt7LAqP_2RElp7zsYnHthxc0bFR40A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "116781829513-kmhs5nesraohqddk29bemto80gu5usis.apps.googleusercontent.com",
+              "client_id": "116574275929-ota5une1kb028380kqovb52rupm0e7l4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116574275929:android:233d41cf0a0eb51c6a2448",
+        "android_client_info": {
+          "package_name": "com.cyanodoc.docconsult.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116574275929-ota5une1kb028380kqovb52rupm0e7l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAljJt7LAqP_2RElp7zsYnHthxc0bFR40A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116574275929-ota5une1kb028380kqovb52rupm0e7l4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116574275929:android:115ad5a153325d0a6a2448",
+        "android_client_info": {
+          "package_name": "com.cyanodoc.etiology"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116574275929-dce2uquhibe5f06tc6ui5ka6800ei607.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cyanodoc.etiology",
+            "certificate_hash": "20543c9935290d5ae3c90decf003efea1b51abfe"
+          }
+        },
+        {
+          "client_id": "116574275929-ota5une1kb028380kqovb52rupm0e7l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAljJt7LAqP_2RElp7zsYnHthxc0bFR40A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116574275929-ota5une1kb028380kqovb52rupm0e7l4.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

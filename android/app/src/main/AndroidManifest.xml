@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cyanodoc_test">
+    package="com.cyanodoc.etiology">
    <application
         android:label="cyanodoc_test"
         android:name="${applicationName}"
