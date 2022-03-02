@@ -1,6 +1,7 @@
 import 'package:cyanodoc_test/app/core/values/colors.dart';
 import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
 import 'package:cyanodoc_test/app/modules/HomePage/HomePage.dart';
+import 'package:cyanodoc_test/app/modules/LoginPage/LoginPageController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';

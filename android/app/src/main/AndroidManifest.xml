@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cyanodoc.etiology">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="cyanodoc_test"
         android:name="${applicationName}"

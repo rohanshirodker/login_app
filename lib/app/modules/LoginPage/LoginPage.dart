@@ -1,37 +1,32 @@
+
 //import 'package:cyanodoc_test/app/modules/ProfilePage/ProfilePage.dart';
 import 'dart:ui';
 
 import 'package:cyanodoc_test/app/core/values/colors.dart';
+import 'package:cyanodoc_test/app/modules/LoginPage/LoginPageController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/parser.dart';
 import 'package:get/get.dart';
 import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
+
 //import 'package:cyanodoc_test/app/data/services/Auth_Service1.dart';
 //import 'package:cyanodoc_test/app/data/services/
-
-
-
-
-
-
 
 class LoginPage extends StatelessWidget {
   final AuthController authController = AuthController.to;
 
-
   @override
   Widget build(BuildContext context) {
-
     final emailField = TextFormField(
       autofocus: false,
-      controller: authController.emailController,
-      keyboardType: TextInputType.emailAddress,
+      controller: authController.phoneNumberController,
+      keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.mail, color: Colors.black),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Email",
+        hintText: "Phone number",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -41,13 +36,13 @@ class LoginPage extends StatelessWidget {
     //password
     final passwordField = TextFormField(
       autofocus: false,
-      controller: authController.passwordController,
+      controller: authController.verificationController,
       obscureText: true,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.vpn_key, color: Colors.black),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Password",
+        hintText: "Verification Code",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -62,11 +57,11 @@ class LoginPage extends StatelessWidget {
       child: MaterialButton(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: () {
-            authController.signIn();
-           // authController.handleSignIn(SignInType.EMAIL_PASSWORD);
+          onPressed: () async {
+            await authController.phoneSignIn();
+            // authController.handleSignIn(SignInType.EMAIL_PASSWORD);
           },
-          child: Text("Login",
+          child: Text("Send OTP",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 20,
@@ -76,19 +71,16 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: backgroucolor,
-
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(10),
           child: Container(
-
-
             //decoration: BoxDecoration(
-               // color: Colors.white,
-                // border: Border.all(
-                //   //color: Colors.red,
-                // ),
-               // borderRadius: BorderRadius.all(Radius.circular(15))),
+            // color: Colors.white,
+            // border: Border.all(
+            //   //color: Colors.red,
+            // ),
+            // borderRadius: BorderRadius.all(Radius.circular(15))),
             // padding: EdgeInsets.all(5),
 
             color: Colors.white,
@@ -97,34 +89,62 @@ class LoginPage extends StatelessWidget {
               padding: const EdgeInsets.all(30.0),
               child: Form(
                 child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/cyanodoclogo.png',
+                        height: 75.0,
+                        width: 75.0,
+                      ),
+                      Image.asset(
+                        'assets/cyanodoctext.png',
+                        //height: 100.0,
+                        width: 200.0,
+                      ),
 
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                      SizedBox(height: 40),
+                      emailField,
+                      // SizedBox(height: 25),
+                      // passwordField,
 
-                  children: <Widget>[
+                      SizedBox(height: 25),
+                      loginButton,
 
-                     Image.asset('assets/cyanodoclogo.png',
-                         height: 75.0,
-                         width: 75.0,
-                         ),
-                    Image.asset('assets/cyanodoctext.png',
-                      //height: 100.0,
-                     width: 200.0,
-                    ),
+                      Obx(() {
+                        return authController.codeSentResult == "yes"
+                            ? Column(
+                          children: [
+                            Container(
+                              child: TextFormField(
+                                controller:
+                                authController.verificationController,
+                                keyboardType: TextInputType.phone,
+                                decoration: InputDecoration(
+                                  hintText: "enter verifactionn code",
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.all(10.0),
+                              child:ElevatedButton(
 
-                    SizedBox(height: 40),
-                    emailField,
-                    SizedBox(height: 25),
-                    passwordField,
-                    SizedBox(height: 25),
-                    loginButton,
+                                  onPressed: () {
+                                    //  Get.to(() => (UserProfile()));
+                                    String userInput = authController.verificationController.text;
+                                    print('');
+                                    authController.checkCredential(verID: authController.verificationIdResult, smsCode: userInput);
+                                  },
+                                  child: Text("verify"),
+                                  style: ElevatedButton.styleFrom(primary: buttoncolor)),
+                            ),
+                          ],
+                        )
+                            : Text('waiting to verify phone number');
+                      })
 
-                    //SizedBox(height: 10),
-                  ]
-
-
-                ),
-
+                      //SizedBox(height: 10),
+                    ]),
               ),
             ),
           ),
