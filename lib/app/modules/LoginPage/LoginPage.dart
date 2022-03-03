@@ -141,7 +141,6 @@ class LoginPage extends StatelessWidget {
                                 ],
                               )
                             :
-
                             Column(
                                 children: [
                                   phoneField,

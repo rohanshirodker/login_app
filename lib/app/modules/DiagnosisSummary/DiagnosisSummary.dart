@@ -107,11 +107,11 @@ class DiagnosisSummary extends StatelessWidget {
                           Get.to(() => (ExistingIllness()));
                         },
                         child: ListView.builder(
-                          itemCount: ExistingIllnesscontroller.existingillnessdata.length.toInt(),
+                          itemCount: ExistingIllnesscontroller.selectedExistingIllness.length.toInt(),
                           itemBuilder: (_, int index) {
                             return ListTile(
                               title: Text(
-                                  ExistingIllnesscontroller.existingillnessdata[index]['name'].toString(),
+                                  ExistingIllnesscontroller.selectedExistingIllness[index]['name'].toString(),
                                   style: TStyle),
                             );
                           },

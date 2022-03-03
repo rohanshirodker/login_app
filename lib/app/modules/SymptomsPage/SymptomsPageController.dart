@@ -6,36 +6,7 @@ import 'package:get/get.dart';
 class SymptomsPageController extends GetxController {
   final SymptomsProvider SymptomsProvidercontroller =
       Get.put(SymptomsProvider());
-
-  //Rx<List<Map<String, dynamic>>> selectedSymptoms= Rx<List<Map<String, dynamic>>>([]);
-
-//List tempsymp=symptomsBox.read('symptoms');
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //     // selectedSymptoms = symptomsBox.read('symptoms');
-  //       // .where((element) => element["selected"].contains("true"))
-  //       // .toList();
-  //  // selectedSymptoms = symptomsBox.read('symptoms');
-  //   // void sym(String EnteredSym) {
-  //   //   List<Map<String, dynamic>> results = [];
-  //   //   if (EnteredSym.isEmpty) {
-  //   //     results = SymptomsProvidercontroller.symptoms;
-  //   //   } else {
-  //   //     results = SymptomsProvidercontroller.symptoms
-  //   //         .where((element) => element["name"]
-  //   //             .toString()
-  //   //             .toLowerCase()
-  //   //             .contains(EnteredSym.toLowerCase()))
-  //   //         .toList();
-  //   //   }
-  //   //   return results;
-  //   //   //foundsym.value = results;
-  //   // }
-  //
-  //  // foundsym.value = SymptomsProvidercontroller.symptoms;
-  // }
+  var selectedlistlength = 0.obs;
 
   get selectedSymptoms => SymptomsProvidercontroller.symptoms
       .where((element) => element["selected"].contains("true"))
@@ -44,22 +15,6 @@ class SymptomsPageController extends GetxController {
   get notselectedSymptoms => SymptomsProvidercontroller.symptoms
       .where((element) => element["selected"].contains("false"))
       .toList();
-
-  // List symFilter(String EnteredSym) {
-  //   List<Map<String, dynamic>> results = [];
-  //   if (EnteredSym.isEmpty) {
-  //     results = SymptomsProvidercontroller.symptoms;
-  //   } else {
-  //     results = SymptomsProvidercontroller.symptoms
-  //         .where((element) => element["name"]
-  //             .toString()
-  //             .toLowerCase()
-  //             .contains(EnteredSym.toLowerCase()))
-  //         .toList();
-  //   }
-  //   return results;
-  //   //foundsym.value = results;
-  // }
 
   void toggle(String id) {
     // print(id);
@@ -71,13 +26,13 @@ class SymptomsPageController extends GetxController {
           SymptomsProvidercontroller.symptoms[i]['selected'] = "true";
         }
       }
-      // else{
-      //   print('toggel element not founf');
-      // }
-      // selectedSymptoms.refresh();
-      // return;
     }
+
+    selectedlistlength.value = selectedSymptoms.length;
+
   }
+
+
 }
 
 class DisplaySymptoms extends StatelessWidget {
@@ -90,15 +45,12 @@ class DisplaySymptoms extends StatelessWidget {
         () => Container(
           padding: EdgeInsets.all(10),
           child: ListView.builder(
-            itemCount: symptomscontroller.selectedSymptoms.length,
+            itemCount: symptomscontroller.selectedlistlength.value,
             itemBuilder: (_, int index) {
               return Card(
                 child: ListTile(
                   selected: true,
-                  // symptomscontroller.selectedSymptoms,
-                  // .contains(symptomscontroller.foundsym.value[index]),
-                  //selectedTileColor: Color(0xFFDAE6F7),
-                  //onChanged: (bool? selected),
+                  selectedTileColor: Color(0xFFDAE6F7),
                   onTap: () => {
                     symptomscontroller.toggle(
                         symptomscontroller.selectedSymptoms[index]['id']),
@@ -115,3 +67,103 @@ class DisplaySymptoms extends StatelessWidget {
     );
   }
 }
+
+class searchSymptoms extends StatelessWidget {
+  SymptomsPageController symptomscontroller = Get.find();
+  final SymptomsProvider SymptomsProvidercontroller =  Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return //Obx(()
+        //{
+         // return symptomscontroller.selectedlistlength.value > 0
+        //  ?
+    Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Autocomplete<Map<String, dynamic>>(
+              optionsBuilder: (TextEditingValue textEditingValue) {
+                List<Map<String, dynamic>> results = [];
+                if (textEditingValue.text.isEmpty ||
+                    textEditingValue.text.length < 3) {
+                  results = [];
+                } else {
+                  results = SymptomsProvidercontroller.symptoms
+                      .where((element) => element["name"]
+                      .toString()
+                      .toLowerCase()
+                      .contains(textEditingValue.text.toLowerCase()))
+                      .toList();
+                }
+                return results;
+              },
+              displayStringForOption: (Map<String, dynamic> symptoms) =>
+              symptoms['name'],
+              fieldViewBuilder:
+                  (context, msgController, focusNode, onEditingComplete) {
+                return TextField(
+
+                  controller: msgController,
+
+                  focusNode: focusNode,
+                  onEditingComplete: null,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    labelText: 'search symptoms',
+                    suffixIcon: IconButton(
+                      onPressed:
+                      msgController.clear,
+                      icon: Icon(Icons.clear),
+                    ),
+                  ),
+                  // onSubmitted: textEditingValue.clear(),
+
+                  //  onChanged: (String value) async {
+                  //    controller.clear();
+                  //   // if (value.length < 2) {
+                  //   //   return;
+                  //   // }
+                  // }
+                );
+              },
+              onSelected: (selectedString) {
+                // print(selectedString)
+                //selectedString.clear();
+                // msgController.clear();
+                //Get.to(() => ( SymptomsPage()));
+                //symptomscontroller.selectedlistlengthresult;
+                return;// msgController.clear();
+                //  return;
+              },
+              optionsViewBuilder: (context, onSelected, options) {
+                return Material(
+                  elevation: 10.0,
+                  child: ListView.builder(
+                    padding: EdgeInsets.all(10.0),
+                    itemCount: options.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Map<String, dynamic> option = options.elementAt(index);
+                      return GestureDetector(
+                        onTap: () => {
+                          symptomscontroller.toggle(option['id']),
+
+                          onSelected(option),
+                        },
+                        child: ListTile(
+
+                          title: Text(option['name']),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+         // ):Text("hello");
+
+       // },
+    );
+  }
+}
+
