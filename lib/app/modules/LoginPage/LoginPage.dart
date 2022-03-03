@@ -1,9 +1,7 @@
-
 //import 'package:cyanodoc_test/app/modules/ProfilePage/ProfilePage.dart';
 import 'dart:ui';
 
 import 'package:cyanodoc_test/app/core/values/colors.dart';
-import 'package:cyanodoc_test/app/modules/LoginPage/LoginPageController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/parser.dart';
@@ -18,39 +16,40 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailField = TextFormField(
+    final phoneField = TextFormField(
       autofocus: false,
       controller: authController.phoneNumberController,
       keyboardType: TextInputType.phone,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail, color: Colors.black),
+        prefixIcon: Icon(Icons.phone_android, color: Colors.black),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Phone number",
+        hintText: "Mobile Number",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
 
-    //password
-    final passwordField = TextFormField(
+    // //verification
+    final verificationField = TextFormField(
       autofocus: false,
       controller: authController.verificationController,
-      obscureText: true,
+      keyboardType: TextInputType.phone,
+      //obscureText: true,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.vpn_key, color: Colors.black),
+        // prefixIcon: Icon(Icons.domain_verification, color: Colors.black),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Verification Code",
+        hintText: "enter verifactionn code",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
 
-// button
-    final loginButton = Material(
+// generateOTP button
+    final generateOtpButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(10),
       color: buttoncolor,
@@ -61,7 +60,31 @@ class LoginPage extends StatelessWidget {
             await authController.phoneSignIn();
             // authController.handleSignIn(SignInType.EMAIL_PASSWORD);
           },
-          child: Text("Send OTP",
+          child: Text("Generate OTP",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold))),
+    );
+
+    // verification button
+    final verificationButton = Material(
+      elevation: 5,
+      borderRadius: BorderRadius.circular(10),
+      color: buttoncolor,
+      child: MaterialButton(
+          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          minWidth: MediaQuery.of(context).size.width,
+          onPressed: () async {
+            //  Get.to(() => (UserProfile()));
+            String userInput = authController.verificationController.text;
+            // print('');
+            authController.checkCredential(
+                verID: authController.verificationIdResult, smsCode: userInput);
+
+          },
+          child: Text("Verify",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 20,
@@ -86,7 +109,7 @@ class LoginPage extends StatelessWidget {
             color: Colors.white,
 
             child: Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(20.0),
               child: Form(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -104,43 +127,28 @@ class LoginPage extends StatelessWidget {
                       ),
 
                       SizedBox(height: 40),
-                      emailField,
-                      // SizedBox(height: 25),
-                      // passwordField,
-
-                      SizedBox(height: 25),
-                      loginButton,
 
                       Obx(() {
                         return authController.codeSentResult == "yes"
                             ? Column(
-                          children: [
-                            Container(
-                              child: TextFormField(
-                                controller:
-                                authController.verificationController,
-                                keyboardType: TextInputType.phone,
-                                decoration: InputDecoration(
-                                  hintText: "enter verifactionn code",
-                                ),
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.all(10.0),
-                              child:ElevatedButton(
+                                children: [
+                                  const Text(
+                                      'Enter Verification Code Sent To Your Mobile Number'),
+                                  SizedBox(height: 10),
+                                  verificationField,
+                                  SizedBox(height: 25),
+                                  verificationButton,
+                                ],
+                              )
+                            :
 
-                                  onPressed: () {
-                                    //  Get.to(() => (UserProfile()));
-                                    String userInput = authController.verificationController.text;
-                                    print('');
-                                    authController.checkCredential(verID: authController.verificationIdResult, smsCode: userInput);
-                                  },
-                                  child: Text("verify"),
-                                  style: ElevatedButton.styleFrom(primary: buttoncolor)),
-                            ),
-                          ],
-                        )
-                            : Text('waiting to verify phone number');
+                            Column(
+                                children: [
+                                  phoneField,
+                                  SizedBox(height: 25),
+                                  generateOtpButton,
+                                ],
+                              );
                       })
 
                       //SizedBox(height: 10),
@@ -153,4 +161,3 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
