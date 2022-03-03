@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 class SymptomsPage extends StatelessWidget {
   final SymptomsPageController symptomscontroller = Get.find();
   final SymptomsProvider SymptomsProvidercontroller = Get.find();
-  var msgController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,11 @@ class SymptomsPage extends StatelessWidget {
           Text("list of symptoms",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           SizedBox(height: 20),
+
           searchSymptoms(),
+
           DisplaySymptoms(),
+
           ElevatedButton(
               onPressed: () {
                 symptomsBox.write(

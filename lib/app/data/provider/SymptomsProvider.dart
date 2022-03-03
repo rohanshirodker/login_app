@@ -37,6 +37,7 @@ class SymptomsProvider extends GetxController {
   void onInit() {
  try{ List symptomslist = (symptomsBox.read('symptoms'));
   restore(symptomslist ,symptoms);
+
   print('restored symptoms');
 }catch(e){
   print(e);

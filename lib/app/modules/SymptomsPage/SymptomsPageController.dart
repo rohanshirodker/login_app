@@ -7,6 +7,14 @@ class SymptomsPageController extends GetxController {
   final SymptomsProvider SymptomsProvidercontroller =
       Get.put(SymptomsProvider());
   var selectedlistlength = 0.obs;
+  @override
+  void onInit() {
+
+    selectedlistlength.value = selectedSymptoms.length;
+    super.onInit();
+  }
+
+
 
   get selectedSymptoms => SymptomsProvidercontroller.symptoms
       .where((element) => element["selected"].contains("true"))
@@ -71,7 +79,8 @@ class DisplaySymptoms extends StatelessWidget {
 class searchSymptoms extends StatelessWidget {
   SymptomsPageController symptomscontroller = Get.find();
   final SymptomsProvider SymptomsProvidercontroller =  Get.find();
-
+  var msgController = TextEditingController();
+  //Map<String, dynamic> emptyList =[] as Map<String, dynamic>;
   @override
   Widget build(BuildContext context) {
     return //Obx(()
@@ -136,6 +145,7 @@ class searchSymptoms extends StatelessWidget {
                 return;// msgController.clear();
                 //  return;
               },
+
               optionsViewBuilder: (context, onSelected, options) {
                 return Material(
                   elevation: 10.0,
@@ -147,7 +157,6 @@ class searchSymptoms extends StatelessWidget {
                       return GestureDetector(
                         onTap: () => {
                           symptomscontroller.toggle(option['id']),
-
                           onSelected(option),
                         },
                         child: ListTile(
