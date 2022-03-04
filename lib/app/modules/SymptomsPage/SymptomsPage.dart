@@ -25,7 +25,7 @@ class SymptomsPage extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           SizedBox(height: 20),
 
-          searchSymptoms(),
+          symptomscontroller.searchSymptoms(),
 
           DisplaySymptoms(),
 
