@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:cyanodoc_test/app/core/values/colors.dart';
+import 'package:cyanodoc_test/app/data/provider/Api_Provider.dart';
 import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
 import 'package:cyanodoc_test/app/data/provider/SymptomsProvider.dart';
 import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SymptomsPage extends StatelessWidget {
-  final SymptomsPageController symptomscontroller = Get.find();
+  //final SymptomsPageController symptomscontroller = Get.find();
   final SymptomsProvider SymptomsProvidercontroller = Get.find();
 
 
@@ -25,26 +26,27 @@ class SymptomsPage extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           SizedBox(height: 20),
 
-          symptomscontroller.searchSymptoms(),
+          //symptomscontroller.searchSymptoms(),
 
-          DisplaySymptoms(),
+        //  DisplaySymptoms(),
+
 
           ElevatedButton(
               onPressed: () {
-                symptomsBox.write(
-                    'symptoms', symptomscontroller.selectedSymptoms);
+                // symptomsBox.write(
+                //     'symptoms', symptomscontroller.selectedSymptoms);
+                //
+                //  Get.to(() => (MyApp1()));
                 Get.to(() => (ExistingIllness()));
               },
               child: Text("Next"),
               style: ElevatedButton.styleFrom(primary: buttoncolor)),
         ],
+
       ),
+
     );
   }
 }
 
-// void txtclear(TextEditingController msgController) {
-//   msgController.clear();
-//   //msgController.dispose();
-//   print("clearded");
-// }
+

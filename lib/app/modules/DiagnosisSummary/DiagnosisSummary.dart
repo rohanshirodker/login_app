@@ -1,28 +1,36 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:cyanodoc_test/app/core/values/colors.dart';
+
 import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
+import 'package:cyanodoc_test/app/data/services/SymtomsApi.dart';
+
 import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
 import 'package:cyanodoc_test/app/modules/ExistingIllness/ExistingIllness.dart';
 import 'package:cyanodoc_test/app/modules/ExistingIllness/ExistingIllnessController.dart';
 import 'package:cyanodoc_test/app/modules/HomePage/HomePage.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPage.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPageController.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:http/http.dart' as http;
 
 import '../BiometricsPage/BiometricsPage.dart';
 
 const TextStyle TStyle = TextStyle(fontSize: 16);
-SymptomsPageController symptomscontroller = Get.find();
+//SymptomsPageController symptomscontroller = Get.find();
 ExistingIllnessController ExistingIllnesscontroller = Get.find();
 
 class DiagnosisSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //late List symptomslist = (symptomsBox.read('symptoms'));
+
     //late List existingillnesslist = (existingillnessBox.read('existingillness'));
 
+    Map symptomslist = symptomsBox.read('symptoms');
     return WillPopScope(
         onWillPop: () async {
           Get.to(() => (HomePage()));
@@ -79,12 +87,20 @@ class DiagnosisSummary extends StatelessWidget {
                           Get.to(() => (SymptomsPage()));
                         },
                         child: ListView.builder(
-                          itemCount: symptomscontroller.selectedSymptoms.length.toInt(),
-                          itemBuilder: (_, int index) {
-                            return ListTile(
-                              title: Text(
-                                  symptomscontroller.selectedSymptoms[index]['name'].toString(),
-                                  style: TStyle),
+                          itemCount: symptomslist.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            String key = symptomslist.keys.elementAt(index);
+                            return new Column(
+                              children: <Widget>[
+                                new ListTile(
+                                  title:
+                                      new Text("${symptomslist[key]['name']}"),
+                                  //subtitle: new Text("${data[key]['name']}"),
+                                ),
+                                new Divider(
+                                  height: 2.0,
+                                ),
+                              ],
                             );
                           },
                         ),
@@ -107,11 +123,15 @@ class DiagnosisSummary extends StatelessWidget {
                           Get.to(() => (ExistingIllness()));
                         },
                         child: ListView.builder(
-                          itemCount: ExistingIllnesscontroller.selectedExistingIllness.length.toInt(),
+                          itemCount: ExistingIllnesscontroller
+                              .selectedExistingIllness.length
+                              .toInt(),
                           itemBuilder: (_, int index) {
                             return ListTile(
                               title: Text(
-                                  ExistingIllnesscontroller.selectedExistingIllness[index]['name'].toString(),
+                                  ExistingIllnesscontroller
+                                      .selectedExistingIllness[index]['name']
+                                      .toString(),
                                   style: TStyle),
                             );
                           },

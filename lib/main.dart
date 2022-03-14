@@ -22,7 +22,7 @@ Future<void> main() async {
   await GetStorage.init('existingillness');
   Get.put(UserProfileController());
   Get.put(AuthController());
-  Get.put(SymptomsPageController());
+ // Get.put(SymptomsPageController());
   Get.put(ExistingIllnessProvider());
   Get.put(ExistingIllnessController());
   Get.put(SymptomsProvider());

@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserProfileController extends GetxController {
-  Rx<UserModel> _userModel = UserModel().obs;
+ // Rx<UserModel> _userModel = UserModel().obs;
 
-  UserModel get user => _userModel.value;
+  //UserModel get user => _userModel.value;
 
-  set user(UserModel value) => this._userModel.value = value;
+ // set user(UserModel value) => this._userModel.value = value;
 
-  void clear() {
-    _userModel.value = UserModel();
-  }
-
-  void userupadte(String _uid) async {
-    user = await Database().getUser(_uid);
-  }
+  // void clear() {
+  //   _userModel.value = UserModel();
+  // }
+  //
+  // void userupadte(String _uid) async {
+  //   user = await Database().getUser(_uid);
+  // }
 
   Future sendVerificationEmail() async {
     try {

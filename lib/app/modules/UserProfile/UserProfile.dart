@@ -31,59 +31,59 @@ class UserProfile extends GetWidget<AuthController> {
                       style:
                           TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
                   SizedBox(height: 25),
-                  GetX<UserProfileController>(
-                    builder: (_) {
-                      if (_.user.firstName != null) {
-                        return Text("Name:  ${_.user.firstName} ");
-                      } else {
-                        return Text("Loading...");
-                      }
-                    },
-                  ),
-                  SizedBox(height: 25),
-                  GetX<UserProfileController>(
-                    builder: (_) {
-                      if (_.user.username != null) {
-                        _uid = _.user.uid!;
-                        return Text("Username:  ${_.user.username} ");
-                      } else {
-                        return Text("Loading...");
-                      }
-                    },
-                  ),
-                  TextFormField(
-                    controller: _updateusername,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () async {
-                      if (_updateusername.text != "") {
-                        Database().updateusername(_updateusername.text, _uid);
-                        Get.find<UserProfileController>().userupadte(_uid);
-                        _updateusername.clear();
-                      }
-                    },
-                  ),
-                  SizedBox(height: 25),
-                  GetX<UserProfileController>(
-                    builder: (_) {
-                      if (_.user.Phone != null) {
-                        return Text("Phone:  ${_.user.Phone}");
-                      } else {
-                        return Text("Loading...");
-                      }
-                    },
-                  ),
-                  SizedBox(height: 25),
-                  GetX<UserProfileController>(
-                    builder: (_) {
-                      if (_.user.email != null) {
-                        return Text("Email:  ${_.user.email}");
-                      } else {
-                        return Text("Loading...");
-                      }
-                    },
-                  ),
+                  // GetX<UserProfileController>(
+                  //   builder: (_) {
+                  //     if (_.user.firstName != null) {
+                  //       return Text("Name:  ${_.user.firstName} ");
+                  //     } else {
+                  //       return Text("Loading...");
+                  //     }
+                  //   },
+                  // ),
+                  // SizedBox(height: 25),
+                  // GetX<UserProfileController>(
+                  //   builder: (_) {
+                  //     if (_.user.username != null) {
+                  //       _uid = _.user.uid!;
+                  //       return Text("Username:  ${_.user.username} ");
+                  //     } else {
+                  //       return Text("Loading...");
+                  //     }
+                  //   },
+                  // ),
+                  // TextFormField(
+                  //   controller: _updateusername,
+                  // ),
+                  // IconButton(
+                  //   icon: Icon(Icons.edit),
+                  //   onPressed: () async {
+                  //     if (_updateusername.text != "") {
+                  //       //Database().updateusername(_updateusername.text, _uid);
+                  //       Get.find<UserProfileController>().userupadte(_uid);
+                  //       _updateusername.clear();
+                  //     }
+                  //   },
+                  // ),
+                  // SizedBox(height: 25),
+                  // GetX<UserProfileController>(
+                  //   builder: (_) {
+                  //     if (_.user.Phone != null) {
+                  //       return Text("Phone:  ${_.user.Phone}");
+                  //     } else {
+                  //       return Text("Loading...");
+                  //     }
+                  //   },
+                  // ),
+                  // SizedBox(height: 25),
+                  // GetX<UserProfileController>(
+                  //   builder: (_) {
+                  //     if (_.user.email != null) {
+                  //       return Text("Email:  ${_.user.email}");
+                  //     } else {
+                  //       return Text("Loading...");
+                  //     }
+                  //   },
+                  // ),
                   SizedBox(height: 25),
                   Icon(
                       controller.userverefied() == false

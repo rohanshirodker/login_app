@@ -24,11 +24,11 @@ class BiometricsPageController extends GetxController {
       box.write('Age', AgeController.text);
       box.write('Weight', WeightController.text);
       box.write('Height', HeightController.text);
-      Database()
-          .updatebiometrics( FirebaseAuth.instance.currentUser!.uid,
-          AgeController.text,
-          WeightController.text,
-          HeightController.text);
+      // Database()
+      //     .updatebiometrics( FirebaseAuth.instance.currentUser!.uid,
+      //     AgeController.text,
+      //     WeightController.text,
+      //     HeightController.text);
 
       // Get.snackbar(
       //   "Age,Weight,Height",

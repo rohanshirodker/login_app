@@ -12,6 +12,7 @@ import '../../modules/UserProfile/UserProfileController.dart';
 FirebaseAuth auth = FirebaseAuth.instance;
 
 class AuthController extends GetxController {
+
   static AuthController to = Get.find();
   late Rxn<User> firebaseUser;
   RxBool isLoggedIn = false.obs;
@@ -44,7 +45,7 @@ class AuthController extends GetxController {
     try {
       await auth.signOut();
       codeSent.value = "no";
-      Get.find<UserProfileController>().clear();
+      //Get.find<UserProfileController>().clear();
       Get.offAll(() => LoginPage());
     } catch (e) {
       Get.snackbar("Error signing out", e.toString());
@@ -57,7 +58,7 @@ class AuthController extends GetxController {
     } else {
       // Get.find<UserProfileController>().user =
       //     await Database().getUser(user.uid);
-      Get.find<UserProfileController>().userupadte(user.uid);
+     // Get.find<UserProfileController>().userupadte(user.uid);
       Get.offAll(() => HomePage());
     }
   }

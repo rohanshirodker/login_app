@@ -4,7 +4,7 @@ final box = GetStorage();
 final symptomsBox = GetStorage('symptoms');
 final existingillnessBox = GetStorage('existingillness');
 
-void restore(List storagename ,List varrbelname  ){
+void restore( List storagename , List varrbelname  ){
 
   for (var i=0; i< storagename.length; i++ ){
     for(var j=0; j< storagename.length; j++) {
