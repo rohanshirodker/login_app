@@ -1,3 +1,4 @@
+import 'package:cyanodoc_test/app/data/services/PatientInfoApi.dart';
 import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
 import 'package:cyanodoc_test/app/data/services/Database.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPage.dart';
@@ -6,30 +7,46 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
+// late Map info= box.read('patientInfo');
 class BiometricsPageController extends GetxController {
+  @override
+  void onInit() async{
+    await fetchPatientInfo();
+  //   Map patientInfo;
+  //   //patientInfo = box.read('patientInfo');
+  //  // if(patientInfo.isEmpty)
+  //     patientInfo = await fetchPatientInfo();
+  //     box.write('patientInfo', patientInfo);
+  //     print(patientInfo);
+  //   super.onInit();
+   }
+
   //final UserProfileController controller = Get.find();
   final TextEditingController AgeController =
-  TextEditingController(text: box.read('Age'));
+  TextEditingController(text:  box.read('patientInfo')['patientInfo']['age']);
+
   final TextEditingController WeightController =
-  TextEditingController(text: box.read('Weight'));
+  TextEditingController(text: box.read('patientInfo')['patientInfo']['weight']);//box.read('Weight'));
   final TextEditingController HeightController =
-  TextEditingController(text: box.read('Height'));
+  TextEditingController(text: box.read('patientInfo')['patientInfo']['height']);//box.read('Height'));
 
 
-  void Submit() {
+  void Submit() async{
     if (AgeController.text != "" &&
         WeightController.text != "" &&
         HeightController.text != "") {
-      box.write('Age', AgeController.text);
-      box.write('Weight', WeightController.text);
-      box.write('Height', HeightController.text);
-      // Database()
-      //     .updatebiometrics( FirebaseAuth.instance.currentUser!.uid,
-      //     AgeController.text,
-      //     WeightController.text,
-      //     HeightController.text);
-
+      Map temp =box.read('patientInfo');
+      temp['patientInfo']['age']= AgeController.text;
+      temp['patientInfo']['weight']= WeightController.text;
+      temp['patientInfo']['height']= WeightController.text;
+      print('bio temp : $temp');
+      box.write('patientInfo',temp);
+      try {
+        await upadteBio(temp);
+      }catch(e)
+    {
+      print(e);
+    }
       // Get.snackbar(
       //   "Age,Weight,Height",
       //   "Update Successful",

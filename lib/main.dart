@@ -2,9 +2,11 @@ import 'package:cyanodoc_test/app/core/theme/AppTheme.dart';
 import 'package:cyanodoc_test/app/data/provider/ExistingIllnessProvider.dart';
 import 'package:cyanodoc_test/app/data/provider/SymptomsProvider.dart';
 import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
+import 'package:cyanodoc_test/app/modules/BiometricsPage/BiometricsPageController.dart';
 import 'package:cyanodoc_test/app/modules/DiagnosisSummary/DiagnosisSummary.dart';
 import 'package:cyanodoc_test/app/modules/ExistingIllness/ExistingIllnessController.dart';
 import 'package:cyanodoc_test/app/modules/HomePage/HomePage.dart';
+import 'package:cyanodoc_test/app/modules/ReportsPage/ReportsPageController.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPageController.dart';
 import 'package:cyanodoc_test/app/modules/UserProfile/UserProfileController.dart';
 import 'package:cyanodoc_test/app/routes/routes.dart';
@@ -22,10 +24,12 @@ Future<void> main() async {
   await GetStorage.init('existingillness');
   Get.put(UserProfileController());
   Get.put(AuthController());
- // Get.put(SymptomsPageController());
+  Get.put(SymptomsPageController());
   Get.put(ExistingIllnessProvider());
   Get.put(ExistingIllnessController());
   Get.put(SymptomsProvider());
+  Get.put(ReportsPageController());
+
 
   runApp(MyApp());
  // runApp(HomePage());

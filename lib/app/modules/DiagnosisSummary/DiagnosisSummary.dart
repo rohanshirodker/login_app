@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:cyanodoc_test/app/core/values/colors.dart';
+import 'package:cyanodoc_test/app/data/services/PatientInfoApi.dart';
 
 import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
 import 'package:cyanodoc_test/app/data/services/SymtomsApi.dart';
@@ -31,6 +32,7 @@ class DiagnosisSummary extends StatelessWidget {
     //late List existingillnesslist = (existingillnessBox.read('existingillness'));
 
     Map symptomslist = symptomsBox.read('symptoms');
+     //fetchPatientInfo();
     return WillPopScope(
         onWillPop: () async {
           Get.to(() => (HomePage()));
@@ -56,17 +58,30 @@ class DiagnosisSummary extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Age : " + box.read('Age').toString(),
+                          Text("Age : " +  box.read('patientInfo')['patientInfo']['age'],
                               style: TStyle),
-                          SizedBox(height: 20),
-                          Text("Weight : " + box.read('Weight').toString(),
+
+                          SizedBox(height: 10),
+                          Divider(
+                            height: 2.0,
+                          ),
+                          SizedBox(height: 10),
+                          Text("Weight : " +  box.read('patientInfo')['patientInfo']['weight'],//box.read('Weight').toString(),
                               style: TStyle),
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
+                          Divider(
+                            height: 2.0,
+                          ),
+                          SizedBox(height: 10),
                           Text(
-                            "Height : " + box.read('Height').toString(),
+                            "Height : " +  box.read('patientInfo')['patientInfo']['height'],//box.read('Height').toString(),
                             style: TStyle,
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 10),
+                          Divider(
+                            height: 2.0,
+                          ),
+                          SizedBox(height: 10),
                         ],
                       ),
                     ),
@@ -90,14 +105,14 @@ class DiagnosisSummary extends StatelessWidget {
                           itemCount: symptomslist.length,
                           itemBuilder: (BuildContext context, int index) {
                             String key = symptomslist.keys.elementAt(index);
-                            return new Column(
+                            return  Column(
                               children: <Widget>[
-                                new ListTile(
+                                 ListTile(
                                   title:
-                                      new Text("${symptomslist[key]['name']}"),
+                                      Text("${symptomslist[key]['name']}"),
                                   //subtitle: new Text("${data[key]['name']}"),
                                 ),
-                                new Divider(
+                                 Divider(
                                   height: 2.0,
                                 ),
                               ],
@@ -133,7 +148,9 @@ class DiagnosisSummary extends StatelessWidget {
                                       .selectedExistingIllness[index]['name']
                                       .toString(),
                                   style: TStyle),
+
                             );
+
                           },
                         ),
                       ),
