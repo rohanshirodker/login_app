@@ -3,9 +3,9 @@ import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
 import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
 import 'package:cyanodoc_test/app/modules/DiagnosisSummary/DiagnosisSummary.dart';
 import 'package:cyanodoc_test/app/modules/ReportsPage/ReportsPage.dart';
-import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPageController.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
 
 import '../UserProfile/UserProfile.dart';

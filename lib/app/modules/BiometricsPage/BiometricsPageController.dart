@@ -24,7 +24,6 @@ class BiometricsPageController extends GetxController {
   //final UserProfileController controller = Get.find();
   final TextEditingController AgeController =
   TextEditingController(text:  box.read('patientInfo')['patientInfo']['age']);
-
   final TextEditingController WeightController =
   TextEditingController(text: box.read('patientInfo')['patientInfo']['weight']);//box.read('Weight'));
   final TextEditingController HeightController =
@@ -42,7 +41,7 @@ class BiometricsPageController extends GetxController {
       print('bio temp : $temp');
       box.write('patientInfo',temp);
       try {
-        await upadteBio(temp);
+        await updateDiagnosisData(temp);
       }catch(e)
     {
       print(e);

@@ -16,9 +16,9 @@ class ReportsPageController extends GetxController {
 void onInit()async {
 
   var response = await fetchReports(symoj);
-   //repoprtlist = jsonDecode(response.body)['reports'];
-  Iterable json = jsonDecode(response.body)['reports'];
-  repoprtlist=List<ReportElement>.from(json.map((model) => ReportElement.fromJson(model)));
+   repoprtlist = jsonDecode(response.body)['reports'];
+  //Iterable json = jsonDecode(response.body)['reports'];
+  //repoprtlist=List<ReportElement>.from(json.map((model) => ReportElement.fromJson(model)));
 }
 
 

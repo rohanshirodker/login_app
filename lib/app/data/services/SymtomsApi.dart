@@ -1,13 +1,12 @@
 import 'dart:convert';
-import 'package:cyanodoc_test/app/data/model/DiagnosisDataModel.dart';
+
 
 import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
 import 'package:cyanodoc_test/app/data/provider/SymptomsProvider.dart';
 import 'package:cyanodoc_test/app/modules/SymptomsPage/SymptomsPageController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
-import 'package:http/http.dart';
+
 
 var url = Uri.parse(
     'https://us-central1-cyanodoc-consult-test.cloudfunctions.net/patientDiagnosis1');
@@ -28,7 +27,7 @@ Future fetchSymptoms() async {
     'authorization': 'Bearer $token'
   });
   //print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}');
+ // print('Response body: ${response.body}');
 
   if (response.statusCode == 200) {
     //return (jsonDecode(response.body)['diagnosisData']['symptomObjs']);
@@ -37,11 +36,11 @@ Future fetchSymptoms() async {
     try {
       //Map<String, dynamic>  symptomslist = data ;
       await symptomsBox.write('symptoms', data);
-      print("saved");
+     // print("saved");
+      print(symptomsBox.read('symptoms'));
     } catch (e) {
       print("symptpms api write : $e");
     }
-
     return data;
   } else {
     print("Failed to Fetch Symptoms");
@@ -75,21 +74,21 @@ Future<List<Map<String, String>>> searchSymptomsApi(String query) async {
   };
   var uri = Uri.https('us-central1-cyanodoc-consult-test.cloudfunctions.net',
       '/symptoms', queryParameters);
-  print("url created " + uri.toString());
+ // print("url created " + uri.toString());
   //print('Response token: $token');
   var response = await http.get(uri, headers: {
     'Accept': 'application/json',
     'authorization': 'Bearer $token'
   });
   //print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}');
+  //print('Response body: ${response.body}');
   List<Symptom> Symptoms = [];
   if (response.statusCode == 200) {
     //return (jsonDecode(response.body)['symptoms']) ;
     Iterable json = jsonDecode(response.body)['symptoms'];
     Symptoms = List<Symptom>.from(json.map((model) => Symptom.fromJson(model)));
 
-    print('Number of suggestion: ${Symptoms.length}.');
+  //  print('Number of suggestion: ${Symptoms.length}.');
     return Future.value(
         Symptoms.map((e) => {'name': e.name, 'id': e.id.toString()}).toList());
   } else {

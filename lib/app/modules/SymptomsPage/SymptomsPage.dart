@@ -15,11 +15,11 @@ class SymptomsPage extends StatelessWidget {
   final SymptomsProvider SymptomsProvidercontroller = Get.find();
 
 
-  Map temp = {"2": {
-  "isSelected": true,
-  "type": "symptoms",
-  "id": 2,
-  "name": "Breast development in men"}};
+  // Map temp = {"2": {
+  // "isSelected": true,
+  // "type": "symptoms",
+  // "id": 2,
+  // "name": "Breast development in men"}};
 
   @override
   Widget build(BuildContext context) {
@@ -34,28 +34,12 @@ class SymptomsPage extends StatelessWidget {
           SizedBox(height: 20),
 
           symptomscontroller.searchSymptoms(),
-
          DisplaySymptoms(),
-
-
 
           ElevatedButton(
               onPressed: () async{
-                // symptomsBox.write(
-                //     'symptoms', symptomscontroller.selectedSymptoms);
-                //
-                //  Get.to(() => (MyApp1()));
-                //Get.to(() => (ExistingIllness()));
-                //var resp = await searchSymptomsApi("hair") ;
 
-              //  await addSymptoms(temp);
-              //  symptomscontroller.addsym();
-                symptomscontroller.post();
-
-              //  await addSymptoms("7", "Cool ");0
-
-
-               // print(resp);
+                symptomscontroller.onSubmitSym();
               },
               child: Text("Next"),
               style: ElevatedButton.styleFrom(primary: buttoncolor)),

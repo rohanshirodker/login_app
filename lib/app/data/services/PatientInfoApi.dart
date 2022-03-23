@@ -20,8 +20,8 @@ Future fetchPatientInfo() async {
         'Accept': 'application/json',
         'authorization': 'Bearer $token'
       });
-  print('Response status: ${response.statusCode}');
-  print('Response body: ${response.body}');
+  //print('Response status: ${response.statusCode}');
+ // print('Response body: ${response.body}');
 
   if (response.statusCode == 200) {
     Map info = (jsonDecode(response.body)['diagnosisData']);//['patientInfo']);
@@ -37,7 +37,7 @@ Future fetchPatientInfo() async {
 
 
 
-Future upadteBio(Map bio) async {
+Future updateDiagnosisData(Map bio) async {
   var client = http.Client();
   var token = await FirebaseAuth.instance.currentUser!.getIdToken();
 

@@ -1,99 +1,108 @@
 import 'package:cyanodoc_test/app/data/provider/StorageProvider.dart';
 import 'package:cyanodoc_test/app/data/provider/SymptomsProvider.dart';
+import 'package:cyanodoc_test/app/data/services/PatientInfoApi.dart';
 import 'package:cyanodoc_test/app/data/services/ReportsApi.dart';
 import 'package:cyanodoc_test/app/data/services/SymtomsApi.dart';
+import 'package:cyanodoc_test/app/modules/ExistingIllness/ExistingIllness.dart';
 import 'package:cyanodoc_test/app/modules/ReportsPage/ReportsPageController.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Map symptomslist = symptomsBox.read('symptoms');
 //fetchPatientInfo();
-Map symoj= Map();
+Map symoj = Map();
+Map allData = box.read('patientInfo');
 
 class SymptomsPageController extends GetxController {
   final SymptomsProvider SymptomsProvidercontroller =
       Get.put(SymptomsProvider());
-  ReportsPageController reportsPageController =  Get.put(ReportsPageController());
+  ReportsPageController reportsPageController =
+      Get.put(ReportsPageController());
   final TextEditingController textEditingController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   final GlobalKey autocompleteKey = GlobalKey();
   var selectedlistlength = 0.obs;
 
- // symptomIds : [ id1, id2 ...]
-
   @override
   void onInit() {
+    fetchPatientInfo();
     selectedlistlength.value = symptomslist.length;
-//var   sym1 =symptomslist.keys;
-// symoj= symptomIds [ sym1 ];
-//    "reports": {}
-
     symoj['symptomIds'] = symptomslist.keys.toList();
-    //symoj['reports']= temp;
+
     print('sym1: $symoj');
     super.onInit();
   }
-  void post()async {
-try{var response =
-await fetchReports(symoj);
-print('Response report api: ${response.body}');
-//reportsPageController.reportResult = response.body;
 
-}catch(e){
-  print(e);
-}
 
-}
 
-  get selectedSymptoms => SymptomsProvidercontroller.symptoms
-      .where((element) => element["selected"].contains("true"))
-      .toList();
 
-  get notselectedSymptoms => SymptomsProvidercontroller.symptoms
-      .where((element) => element["selected"].contains("false"))
-      .toList();
+  void addSymtoms(String id, String name) {
+    symptomslist.putIfAbsent(
+      id,
+      () => {
+        'id': int.parse(id),
+        'type': 'symptoms',
+        'isSelected': true,
+        'name': name
+      }, //addsym(id,name);
+    );
+    symptomsBox.write('symptoms', symptomslist);
+    allData = box.read('patientInfo');
+    allData["symptomObjs"] = symptomslist;
+    print(allData["symptomObjs"]);
+    box.write('patientInfo', allData);
 
-  void toggle(String id) {
-    // print(id);
-    for (int i = 0; i < SymptomsProvidercontroller.symptoms.length; i++) {
-      if (SymptomsProvidercontroller.symptoms[i]['id'] == id) {
-        if (SymptomsProvidercontroller.symptoms[i]['selected'] == "true") {
-          SymptomsProvidercontroller.symptoms[i]['selected'] = "false";
-        } else {
-          SymptomsProvidercontroller.symptoms[i]['selected'] = "true";
-        }
-      }
+    //box.write(('patientInfo'),{'symptomObjs',symptomslist});
+    // print('box ');
+    // print(box.read('patientInfo'));
+    // print('symptomslist :$symptomslist');
+//return;
+
+     selectedlistlength.value = symptomslist.length;
+  }
+
+  void deleteSymtoms(String id, String name) {
+    symptomslist.remove(id);
+
+    symptomsBox.write('symptoms', symptomslist);
+    allData = box.read('patientInfo');
+    allData["symptomObjs"] = symptomslist;
+    print(allData["symptomObjs"]);
+    box.write('patientInfo', allData);
+    selectedlistlength.value = symptomslist.length;
+  }
+
+  void onSubmitSym() async {
+    try {
+      await updateDiagnosisData(allData);
+      var response = await fetchReports(symoj);
+      print('Response report api: ${response.body}');
+    } catch (e) {
+      print(e);
     }
 
-    selectedlistlength.value = selectedSymptoms.length;
+    symoj['symptomIds'] = symptomslist.keys.toList();
+    Get.to(() => (ExistingIllness()));
   }
- void addsym() {
-    SymptomObj(
 
-       isSelected: true,
-       type: "symptoms",
-       id: 2,
-       name: "Breast development in men").toJson();
- }
-
-  searchSymptoms()  {
+  searchSymptoms() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: RawAutocomplete<Map<String, String>>(
+      child: RawAutocomplete<Map<String, dynamic>>(
         key: autocompleteKey,
         focusNode: focusNode,
         textEditingController: textEditingController,
         optionsBuilder: (TextEditingValue textEditingValue) async {
-          List<Map<String, String>> results = [];
+          List<Map<String, dynamic>> results = [];
           if (textEditingValue.text.isEmpty ||
               textEditingValue.text.length < 3) {
             results = [];
           } else {
-           // List<Map<String, String>> temp = await searchSymptomsApi(textEditingValue.text);
+            // List<Map<String, String>> temp = await searchSymptomsApi(textEditingValue.text);
 
-            results =  await searchSymptomsApi(textEditingValue.text);
-                //temp;
+            results = await searchSymptomsApi(textEditingValue.text);
+            //temp;
 
           }
           return results;
@@ -129,8 +138,8 @@ print('Response report api: ${response.body}');
                 Map<String, dynamic> option = options.elementAt(index);
                 return GestureDetector(
                   onTap: () => {
-                    // toggle(option['id']),
-                    //onSelected(option),
+                    addSymtoms(option['id'], option['name']),
+                    onSelected(option),
                   },
                   child: ListTile(
                     title: Text(option['name']),
@@ -154,30 +163,25 @@ class DisplaySymptoms extends StatelessWidget {
       child: Obx(
         () => Container(
           padding: EdgeInsets.all(10),
-          child:
-          ListView.builder(
-            itemCount: symptomscontroller.selectedlistlength.value,//symptomslist.length,
+          child: ListView.builder(
+            itemCount: symptomscontroller.selectedlistlength.value,
+            //symptomslist.length,
             itemBuilder: (BuildContext context, int index) {
               String key = symptomslist.keys.elementAt(index);
-              return  Card(
-                child:
-                  ListTile(
+              return Card(
+                child: ListTile(
+                    trailing:Icon(Icons.close),
+                  //selected: true,
+                  //selectedTileColor: Color(0xFFDAE6F7),
+                          onTap: () => {
+                            symptomscontroller.deleteSymtoms(key,symptomslist[key]['name']),
+                          },
 
-                    selected: true,
-                     selectedTileColor: Color(0xFFDAE6F7),
-                    //         onTap: () => {
-                    //           symptomscontroller.toggle(
-                    //               symptomscontroller.selectedSymptoms[index]['id']),
-                    //         },
-
-                    title:
-                    Text("${symptomslist[key]['name']}"),
-
-                  ),
-                  // Divider(
-                  //   height: 2.0,
-                  // ),
-
+                  title: Text("${symptomslist[key]['name']}"),
+                ),
+                // Divider(
+                //   height: 2.0,
+                // ),
               );
             },
           ),
