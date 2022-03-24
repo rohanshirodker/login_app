@@ -9,7 +9,7 @@ import 'package:cyanodoc_test/app/modules/ReportsPage/ReportsPageController.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Map symptomslist = symptomsBox.read('symptoms');
+Map symptomslist = symptomsBox.read('symptoms') ?? Map();
 //fetchPatientInfo();
 Map symoj = Map();
 Map allData = box.read('patientInfo');

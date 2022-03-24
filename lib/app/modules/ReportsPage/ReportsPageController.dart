@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:cyanodoc_test/app/data/model/ReportsModel.dart';
 import 'package:cyanodoc_test/app/data/services/ReportsApi.dart';
@@ -8,32 +9,21 @@ import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 
 //Map repoprtlist = Map();
- List repoprtlist=[] ;
+Report reports = Report(success: '400', reports: [], );
+
 class ReportsPageController extends GetxController {
   // Map reportResult= Map();
 
-@override
-void onInit()async {
+  @override
+  void onInit() async {
+    var response = await fetchReports(symoj);
 
-  var response = await fetchReports(symoj);
-   repoprtlist = jsonDecode(response.body)['reports'];
-  //Iterable json = jsonDecode(response.body)['reports'];
-  //repoprtlist=List<ReportElement>.from(json.map((model) => ReportElement.fromJson(model)));
-}
-
-
-   fun() async {
-     var response = await fetchReports(symoj);
-    // print('Response body: ${response.body}');
-    // List<ReportElement> Reports = [];
-     // if (response.statusCode == 200) {
-     //return (jsonDecode(response.body)['symptoms']) ;
-   // Iterable json = jsonDecode(response.body)['reports'];
-    //repoprtlist = List<ReportElement>.from(json.map((model) => ReportElement.fromJson(model)));
-     repoprtlist = jsonDecode(response.body)['reports'];
-     print(repoprtlist);
-
+    reports = Report.fromJson(jsonDecode(response.body));
+    update();
+    //Iterable json = jsonDecode(response.body)['reports'];
+    //repoprtlist=List<ReportElement>.from(json.map((model) => ReportElement.fromJson(model)));
   }
+
 }
 
 class Questions extends StatelessWidget {
@@ -99,44 +89,48 @@ class Questions extends StatelessWidget {
 // }
 
 class DisplayReports extends StatelessWidget {
- // SymptomsPageController symptomscontroller = Get.put(SymptomsPageController());
+  // SymptomsPageController symptomscontroller = Get.put(SymptomsPageController());
 
   @override
   Widget build(BuildContext context) {
+
     return Flexible(
-      child:  Container(
-          padding: EdgeInsets.all(10),
-          child:
-          ListView.builder(
-            itemCount: repoprtlist.length,// symptomscontroller.selectedlistlength.value,//symptomslist.length,
-            itemBuilder: (BuildContext context, int index) {
-              //String key = symptomslist.keys.elementAt(index);
-              return  Card(
-                child:
-                ListTile(
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: ListView.builder(
+          itemCount: reports.reports
+              .length, // symptomscontroller.selectedlistlength.value,//symptomslist.length,
+          itemBuilder: (BuildContext context, int index) {
+            //String key = symptomslist.keys.elementAt(index);
+            return getReportColumn(reports.reports[index]);
 
-                  // selected: true,
-                  // selectedTileColor: Color(0xFFDAE6F7),
-                  //         onTap: () => {
-                  //           symptomscontroller.toggle(
-                  //               symptomscontroller.selectedSymptoms[index]['id']),
-                  //         },
-
-                  title:
-                  Text("${repoprtlist[index]['name']}"),
-                  subtitle: Text("${repoprtlist[index]['tests']}"),
-
-
-                ),
-                // Divider(
-                //   height: 2.0,
-                // ),
-
-              );
-            },
-          ),
+          },
         ),
-
+      ),
     );
   }
+}
+
+Column getReportColumn(ReportElement report) {
+  log("reportName: "+report.name);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(report.name),
+      for (var test in report.tests) getSubTest(test)
+    ],
+  );
+}
+
+Column getSubTest(Test subtest) {
+  log("subtest: "+subtest.values.toString());
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(subtest.question),
+      DropdownButton<String>(items: subtest.values.map((String val){
+        return DropdownMenuItem<String>(child: Text(val), value: val,);
+      }).toList(), onChanged: (_){},)
+    ],
+  );
 }
