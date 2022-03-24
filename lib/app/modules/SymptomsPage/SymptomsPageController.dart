@@ -9,7 +9,7 @@ import 'package:cyanodoc_test/app/modules/ReportsPage/ReportsPageController.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Map symptomslist = symptomsBox.read('symptoms');
+Map symptomslist = symptomsBox.read('symptoms')?? Map();
 //fetchPatientInfo();
 Map symoj = Map();
 Map allData = box.read('patientInfo');
@@ -29,13 +29,9 @@ class SymptomsPageController extends GetxController {
     fetchPatientInfo();
     selectedlistlength.value = symptomslist.length;
     symoj['symptomIds'] = symptomslist.keys.toList();
-
     print('sym1: $symoj');
     super.onInit();
   }
-
-
-
 
   void addSymtoms(String id, String name) {
     symptomslist.putIfAbsent(
@@ -45,7 +41,7 @@ class SymptomsPageController extends GetxController {
         'type': 'symptoms',
         'isSelected': true,
         'name': name
-      }, //addsym(id,name);
+      },
     );
     symptomsBox.write('symptoms', symptomslist);
     allData = box.read('patientInfo');
@@ -53,13 +49,7 @@ class SymptomsPageController extends GetxController {
     print(allData["symptomObjs"]);
     box.write('patientInfo', allData);
 
-    //box.write(('patientInfo'),{'symptomObjs',symptomslist});
-    // print('box ');
-    // print(box.read('patientInfo'));
-    // print('symptomslist :$symptomslist');
-//return;
-
-     selectedlistlength.value = symptomslist.length;
+    selectedlistlength.value = symptomslist.length;
   }
 
   void deleteSymtoms(String id, String name) {
@@ -87,6 +77,7 @@ class SymptomsPageController extends GetxController {
   }
 
   searchSymptoms() {
+    List<Map<String, dynamic>> results = [];
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: RawAutocomplete<Map<String, dynamic>>(
@@ -94,7 +85,7 @@ class SymptomsPageController extends GetxController {
         focusNode: focusNode,
         textEditingController: textEditingController,
         optionsBuilder: (TextEditingValue textEditingValue) async {
-          List<Map<String, dynamic>> results = [];
+
           if (textEditingValue.text.isEmpty ||
               textEditingValue.text.length < 3) {
             results = [];
@@ -124,10 +115,15 @@ class SymptomsPageController extends GetxController {
             ),
           );
         },
-        onSelected: (selectedString) {
-          return textEditingController.clear();
-          //  return;
-        },
+        // onSelected: (selectedString) {
+        //   addSymtoms(selectedString['id'], selectedString['name']);
+        //   textEditingController.clear();
+        //   results = [];
+        //
+        //
+        //
+        //   //  return;
+        // },
         optionsViewBuilder: (context, onSelected, options) {
           return Material(
             elevation: 10.0,
@@ -138,8 +134,9 @@ class SymptomsPageController extends GetxController {
                 Map<String, dynamic> option = options.elementAt(index);
                 return GestureDetector(
                   onTap: () => {
-                    addSymtoms(option['id'], option['name']),
-                    onSelected(option),
+                  addSymtoms(option['id'], option['name']),
+                  textEditingController.clear(),
+                   // onSelected(option),
                   },
                   child: ListTile(
                     title: Text(option['name']),
@@ -163,27 +160,31 @@ class DisplaySymptoms extends StatelessWidget {
       child: Obx(
         () => Container(
           padding: EdgeInsets.all(10),
-          child: ListView.builder(
-            itemCount: symptomscontroller.selectedlistlength.value,
-            //symptomslist.length,
-            itemBuilder: (BuildContext context, int index) {
-              String key = symptomslist.keys.elementAt(index);
-              return Card(
-                child: ListTile(
-                    trailing:Icon(Icons.close),
-                  //selected: true,
-                  //selectedTileColor: Color(0xFFDAE6F7),
-                          onTap: () => {
-                            symptomscontroller.deleteSymtoms(key,symptomslist[key]['name']),
-                          },
+          child: Scrollbar(
+            isAlwaysShown: true,
+            child: ListView.builder(
+              itemCount: symptomscontroller.selectedlistlength.value,
+              //symptomslist.length,
+              itemBuilder: (BuildContext context, int index) {
+                String key = symptomslist.keys.elementAt(index);
+                return Card(
+                  child: ListTile(
+                    trailing: Icon(Icons.close),
+                    //selected: true,
+                    //selectedTileColor: Color(0xFFDAE6F7),
+                    onTap: () => {
+                      symptomscontroller.deleteSymtoms(
+                          key, symptomslist[key]['name']),
+                    },
 
-                  title: Text("${symptomslist[key]['name']}"),
-                ),
-                // Divider(
-                //   height: 2.0,
-                // ),
-              );
-            },
+                    title: Text("${symptomslist[key]['name']}"),
+                  ),
+                  // Divider(
+                  //   height: 2.0,
+                  // ),
+                );
+              },
+            ),
           ),
         ),
       ),

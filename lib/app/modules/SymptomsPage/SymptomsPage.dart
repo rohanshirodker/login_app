@@ -14,13 +14,6 @@ class SymptomsPage extends StatelessWidget {
   final SymptomsPageController symptomscontroller = Get.find();
   final SymptomsProvider SymptomsProvidercontroller = Get.find();
 
-
-  // Map temp = {"2": {
-  // "isSelected": true,
-  // "type": "symptoms",
-  // "id": 2,
-  // "name": "Breast development in men"}};
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

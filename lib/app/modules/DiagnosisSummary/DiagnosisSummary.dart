@@ -31,7 +31,7 @@ class DiagnosisSummary extends StatelessWidget {
 
     //late List existingillnesslist = (existingillnessBox.read('existingillness'));
 
-    Map symptomslist = symptomsBox.read('symptoms');
+    Map symptomslist = symptomsBox.read('symptoms')?? Map();
     // fetchPatientInfo();
     return WillPopScope(
         onWillPop: () async {

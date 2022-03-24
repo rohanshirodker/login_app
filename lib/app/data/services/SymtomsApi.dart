@@ -10,12 +10,12 @@ import 'package:http/http.dart' as http;
 
 var url = Uri.parse(
     'https://us-central1-cyanodoc-consult-test.cloudfunctions.net/patientDiagnosis1');
-var urlsearch = Uri.parse(
-    'https://us-central1-cyanodoc-consult-test.cloudfunctions.net/symptoms?q=hair&type=symptoms');
+// var urlsearch = Uri.parse(
+//     'https://us-central1-cyanodoc-consult-test.cloudfunctions.net/symptoms?q=hair&type=symptoms');
 
 
 late Map<String, dynamic> data;
-//late  List<Map<String, dynamic>>  sdata;
+
 
 Future fetchSymptoms() async {
   var client = http.Client();
@@ -30,13 +30,10 @@ Future fetchSymptoms() async {
  // print('Response body: ${response.body}');
 
   if (response.statusCode == 200) {
-    //return (jsonDecode(response.body)['diagnosisData']['symptomObjs']);
     Map<String, dynamic> map = json.decode(response.body);
     data = map["diagnosisData"]["symptomObjs"];
     try {
-      //Map<String, dynamic>  symptomslist = data ;
       await symptomsBox.write('symptoms', data);
-     // print("saved");
       print(symptomsBox.read('symptoms'));
     } catch (e) {
       print("symptpms api write : $e");
@@ -48,21 +45,21 @@ Future fetchSymptoms() async {
   }
 }
 
-Future addSymptoms(String id, String name) async {
-  var client = http.Client();
-  var token = await FirebaseAuth.instance.currentUser!.getIdToken();
-
-  print('Response token: $token');
-  return await client.post(
-    url,
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'authorization': 'Bearer $token'
-    },
-    //body: SymptomObj.toJson(),
-    body: jsonEncode(SymptomObj),
-  );
-}
+// Future addSymptoms(String id, String name) async {
+//   var client = http.Client();
+//   var token = await FirebaseAuth.instance.currentUser!.getIdToken();
+//
+//   print('Response token: $token');
+//   return await client.post(
+//     url,
+//     headers: <String, String>{
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'authorization': 'Bearer $token'
+//     },
+//     //body: SymptomObj.toJson(),
+//     body: jsonEncode(SymptomObj),
+//   );
+// }
 
 
 Future<List<Map<String, String>>> searchSymptomsApi(String query) async {

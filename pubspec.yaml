@@ -44,6 +44,8 @@ dependencies:
   get_storage: ^2.0.3
   flutter_svg: ^1.0.3
   http: ^0.13.4
+  agora_rtc_engine: ^5.0.1
+  permission_handler: ^9.2.0
 
   
 

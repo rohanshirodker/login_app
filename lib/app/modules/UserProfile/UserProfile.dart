@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UserProfile extends GetWidget<AuthController> {
+  UserProfileController userProfileController = Get.find();
   final TextEditingController _updateusername = TextEditingController();
   static const IconData verified =
       IconData(0xe699, fontFamily: 'MaterialIcons');
   late String _uid;
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,16 @@ class UserProfile extends GetWidget<AuthController> {
                       style:
                           TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
                   SizedBox(height: 25),
+                  Text(userProfileController.username(),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Text(userProfileController.useremail(),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Text(userProfileController.usernumber(),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+
                   // GetX<UserProfileController>(
                   //   builder: (_) {
                   //     if (_.user.firstName != null) {
@@ -51,19 +61,21 @@ class UserProfile extends GetWidget<AuthController> {
                   //     }
                   //   },
                   // ),
-                  // TextFormField(
-                  //   controller: _updateusername,
-                  // ),
-                  // IconButton(
-                  //   icon: Icon(Icons.edit),
-                  //   onPressed: () async {
-                  //     if (_updateusername.text != "") {
-                  //       //Database().updateusername(_updateusername.text, _uid);
-                  //       Get.find<UserProfileController>().userupadte(_uid);
-                  //       _updateusername.clear();
-                  //     }
-                  //   },
-                  // ),
+                  TextFormField(
+                    controller: _updateusername,
+                   //   style: TextStyle(fontSize: 20),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () async {
+                      if (_updateusername.text != "") {
+                        userProfileController
+                            .updateusername(_updateusername.text);
+                        //   Get.find<UserProfileController>().userupadte(_uid);
+                        _updateusername.clear();
+                      }
+                    },
+                  ),
                   // SizedBox(height: 25),
                   // GetX<UserProfileController>(
                   //   builder: (_) {

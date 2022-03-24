@@ -29,6 +29,7 @@ Future<void> main() async {
   Get.put(ExistingIllnessController());
   Get.put(SymptomsProvider());
   Get.put(ReportsPageController());
+  Get.put(UserProfileController());
 
 
   runApp(MyApp());

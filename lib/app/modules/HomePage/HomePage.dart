@@ -3,6 +3,7 @@ import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
 import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
 import 'package:cyanodoc_test/app/modules/DiagnosisSummary/DiagnosisSummary.dart';
 import 'package:cyanodoc_test/app/modules/ReportsPage/ReportsPage.dart';
+import 'package:cyanodoc_test/app/modules/VideoCall/VideoCall.dart';
 
 import 'package:flutter/material.dart';
 
@@ -41,6 +42,13 @@ class HomePage extends GetWidget<AuthController> {
                       Get.to(() => (ReportsPage()));
                     },
                     child: Text("Report Page"),
+                    style: ElevatedButton.styleFrom(primary: buttoncolor)),
+                ElevatedButton(
+                    onPressed: () {
+                      getToken();
+                     // Get.to(() => (MyApp()));
+                    },
+                    child: Text("Video call"),
                     style: ElevatedButton.styleFrom(primary: buttoncolor)),
 
               ],
