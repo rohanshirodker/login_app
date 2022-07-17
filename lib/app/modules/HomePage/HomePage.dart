@@ -1,6 +1,7 @@
 import 'package:cyanodoc_test/app/core/values/colors.dart';
 import 'package:cyanodoc_test/app/data/services/Auth_Controller.dart';
 import 'package:cyanodoc_test/app/modules/AppBar/AppBar.dart';
+import 'package:cyanodoc_test/app/modules/Call/CallPage.dart';
 import 'package:cyanodoc_test/app/modules/DiagnosisSummary/DiagnosisSummary.dart';
 import 'package:cyanodoc_test/app/modules/ReportsPage/ReportsPage.dart';
 
@@ -42,6 +43,12 @@ class HomePage extends GetWidget<AuthController> {
                     },
                     child: Text("Report Page"),
                     style: ElevatedButton.styleFrom(primary: buttoncolor)),
+                ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => (CallPage()));
+                    },
+                    child: Text("Join call"),
+                    style: ElevatedButton.styleFrom(primary: buttoncolor))
 
               ],
             ),
